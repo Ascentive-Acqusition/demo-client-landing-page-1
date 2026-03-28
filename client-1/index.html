@@ -3,237 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pulse — Social Performance Engine</title>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<title>Pulse</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=DM+Mono&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{
-  --soil:#2B1517;--bark:#3A2124;--earth:#4F362F;
-  --dusty:#927071;--mauve:#A5888A;--blush:#B59FA1;
-  --off:#F5F2EF;--offb:#EDEBE7;--white:#FFFFFF;
-  --border:rgba(43,21,23,.08);--border2:rgba(43,21,23,.14);
-  --text1:#2B1517;--text2:#4F362F;--text3:#927071;--text4:#B59FA1;
-  --up:#15803D;--dn:#DC2626;--nt:#927071;
-  --ai:#6366F1;--ai-bg:#EEF2FF;
-}
+:root{--soil:#2B1517;--earth:#4F362F;--dusty:#927071;--mauve:#A5888A;--blush:#B59FA1;--off:#F5F2EF;--offb:#EDEBE7;--border:rgba(43,21,23,.08);--border2:rgba(43,21,23,.14)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off);color:var(--text1);height:100vh;overflow:hidden;font-size:13px}
-/* SHELL */
+body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off);color:var(--soil);height:100vh;overflow:hidden;font-size:13px}
 .shell{display:flex;height:100vh}
-/* SIDEBAR */
-.sb{width:216px;min-width:216px;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-.sb-logo{padding:14px 14px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.sb{width:214px;min-width:214px;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.sb-logo{padding:13px 14px 11px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
 .sb-ecg{flex-shrink:0}
-.sb-word{font-size:14px;font-weight:300;letter-spacing:5px;color:var(--soil);text-transform:uppercase}
-.sb-tag{margin-left:auto;font-size:8px;letter-spacing:1.5px;font-weight:400;background:var(--offb);color:var(--dusty);padding:2px 7px;border:1px solid var(--border2)}
-.sb-nav{flex:1;overflow-y:auto;padding:8px 8px 0}
+.sb-word{font-size:13px;font-weight:300;letter-spacing:5px;color:var(--soil);text-transform:uppercase}
+.sb-tag{margin-left:auto;font-size:8px;letter-spacing:1.5px;color:var(--dusty);padding:2px 7px;border:1px solid var(--border2)}
+.sb-nav{flex:1;overflow-y:auto;padding:6px 6px 0}
 .sb-nav::-webkit-scrollbar{display:none}
 .sec-lbl{font-size:8px;font-weight:400;color:var(--mauve);letter-spacing:2.5px;text-transform:uppercase;padding:10px 6px 4px;display:block}
-.nav-item{display:flex;align-items:center;gap:8px;padding:7px 8px;cursor:pointer;color:var(--text3);font-size:11px;letter-spacing:.5px;transition:all .15s;user-select:none;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;font-weight:300}
-.nav-item:hover{background:var(--offb);color:var(--text1)}
-.nav-item.active{background:var(--soil);color:var(--white)}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 8px;cursor:pointer;color:var(--dusty);font-size:11px;letter-spacing:.5px;transition:all .12s;user-select:none;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;font-weight:300}
+.nav-item:hover{background:var(--offb);color:var(--soil)}
+.nav-item.active{background:var(--soil);color:#fff}
 .nav-item svg{width:13px;height:13px;flex-shrink:0;opacity:.6}
 .nav-item.active svg{opacity:1}
-.nav-badge{margin-left:auto;font-size:9px;font-weight:400;background:var(--dusty);color:var(--white);padding:1px 7px;letter-spacing:.5px}
-.nav-sub{font-size:10.5px;letter-spacing:.5px;color:var(--mauve);padding:5px 8px 5px 28px;cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none;font-weight:300}
-.nav-sub:hover{color:var(--text1);background:var(--offb)}
+.nav-badge{margin-left:auto;font-size:9px;background:var(--dusty);color:#fff;padding:1px 7px;letter-spacing:.5px}
+.nav-sub{font-size:10.5px;color:var(--mauve);padding:5px 8px 5px 28px;cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none;font-weight:300;letter-spacing:.3px}
+.nav-sub:hover{color:var(--soil);background:var(--offb)}
 .nav-sub.active{color:var(--soil);font-weight:400}
 .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;display:inline-block}
 .sb-foot{padding:10px 12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:9px}
-.sb-av{width:26px;height:26px;border-radius:50%;background:var(--soil);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:400;letter-spacing:1px;flex-shrink:0}
-.sb-info{flex:1}
-.sb-name{font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--soil)}
-.sb-plan{font-size:9px;letter-spacing:1px;color:var(--mauve)}
-/* MAIN */
+.sb-av{width:26px;height:26px;border-radius:50%;background:var(--soil);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:400;letter-spacing:1px;flex-shrink:0}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.topbar{height:50px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:8px;flex-shrink:0}
-.topbar-title{font-size:13px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--soil);white-space:nowrap}
-.tb-tabs{display:flex;gap:1px;margin-left:12px;background:var(--offb);padding:3px;border-radius:0}
-.tb-tab{padding:4px 12px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:var(--text3);transition:all .15s;background:transparent;border:none;font-family:inherit;font-weight:300}
-.tb-tab:hover{color:var(--text1)}
-.tb-tab.active{background:var(--white);color:var(--soil);font-weight:400}
+.topbar{height:50px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:8px;flex-shrink:0}
+.topbar-title{font-size:12px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:var(--soil);white-space:nowrap}
+.tb-tabs{display:flex;gap:1px;margin-left:12px;background:var(--offb);padding:3px}
+.tb-tab{padding:4px 12px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:var(--dusty);transition:all .12s;background:transparent;border:none;font-family:inherit;font-weight:300}
+.tb-tab.active{background:#fff;color:var(--soil);font-weight:400}
 .tb-r{margin-left:auto;display:flex;align-items:center;gap:6px}
-.btn{padding:5px 13px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:10px;font-family:inherit;font-weight:300;letter-spacing:1px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn{padding:5px 12px;border:1px solid var(--border2);background:transparent;color:var(--earth);font-size:10px;font-family:inherit;font-weight:300;letter-spacing:1px;cursor:pointer;transition:all .12s;white-space:nowrap}
 .btn:hover{background:var(--offb);color:var(--soil)}
-.btn.prim{background:var(--soil);color:var(--white);border-color:var(--soil)}
+.btn.prim{background:var(--soil);color:#fff;border-color:var(--soil)}
 .btn.prim:hover{background:var(--earth);border-color:var(--earth)}
-/* AI BAR */
-.aibar{background:var(--white);border-bottom:1px solid var(--border);padding:7px 20px;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.aibar{background:#fff;border-bottom:1px solid var(--border);padding:7px 18px;display:flex;align-items:center;gap:8px;flex-shrink:0}
 .ai-orb{width:20px;height:20px;background:var(--soil);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ai-iw{flex:1;display:flex;align-items:center;gap:6px;background:var(--offb);border:1px solid var(--border);padding:5px 10px}
-.ai-inp{flex:1;border:none;background:transparent;font-size:11.5px;font-family:inherit;font-weight:300;color:var(--text1);outline:none;letter-spacing:.3px}
+.ai-inp{flex:1;border:none;background:transparent;font-size:11px;font-family:inherit;font-weight:300;color:var(--soil);outline:none;letter-spacing:.3px}
 .ai-inp::placeholder{color:var(--mauve)}
 .ai-send{width:20px;height:20px;background:var(--soil);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .chip-row{display:flex;gap:5px;overflow-x:auto}
 .chip-row::-webkit-scrollbar{display:none}
-.chip{font-size:10px;letter-spacing:.8px;padding:3px 9px;border:1px solid var(--border2);color:var(--text3);cursor:pointer;white-space:nowrap;background:var(--white);font-family:inherit;font-weight:300}
+.chip{font-size:10px;letter-spacing:.8px;padding:3px 9px;border:1px solid var(--border2);color:var(--earth);cursor:pointer;white-space:nowrap;background:#fff;font-family:inherit;font-weight:300}
 .chip:hover{border-color:var(--soil);color:var(--soil)}
-/* CONTENT */
-.content{flex:1;overflow-y:auto;padding:16px 20px}
+.content{flex:1;overflow-y:auto;padding:14px 18px}
 .content::-webkit-scrollbar{width:3px}
 .content::-webkit-scrollbar-thumb{background:var(--border2)}
 .screen{display:none}
 .screen.active{display:block}
-/* CARDS */
-.card{background:var(--white);border:1px solid var(--border);padding:14px}
+.card{background:#fff;border:1px solid var(--border);padding:14px;margin-bottom:10px}
 .card-h{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
 .card-t{font-size:12px;font-weight:400;letter-spacing:.5px;color:var(--soil)}
-.card-s{font-size:10px;letter-spacing:.5px;color:var(--mauve);margin-top:2px}
-/* GRIDS */
+.card-s{font-size:10px;letter-spacing:.3px;color:var(--mauve);margin-top:2px}
 .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}
 .g2{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:10px;margin-bottom:10px}
 .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:10px}
 .g2e{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:10px}
-.mb{margin-bottom:10px}
-/* METRIC CARDS */
 .mc{background:var(--offb);border:1px solid var(--border);padding:12px 14px}
-.mc-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-bottom:5px}
+.mc-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-bottom:4px}
 .mc-v{font-size:22px;font-weight:300;letter-spacing:-1px;color:var(--soil)}
 .mc-d{font-size:10px;margin-top:3px;letter-spacing:.3px}
-.up{color:var(--up)}.dn{color:var(--dn)}.nt{color:var(--nt)}
-/* PILLS */
-.pill{display:inline-block;padding:2px 9px;font-size:9px;letter-spacing:1px;font-weight:400;white-space:nowrap;border:1px solid transparent}
+.up{color:#15803D}.dn{color:#DC2626}.nt{color:var(--mauve)}
+.pill{display:inline-block;padding:2px 9px;font-size:9px;letter-spacing:1px;white-space:nowrap;border:1px solid transparent}
 .pg{background:#DCFCE7;color:#15803D;border-color:rgba(21,128,61,.15)}
-.pa{background:var(--ai-bg);color:var(--ai);border-color:rgba(99,102,241,.2)}
+.pa{background:#EEF2FF;color:#6366F1;border-color:rgba(99,102,241,.2)}
 .pr{background:#FEF2F2;color:#DC2626;border-color:rgba(220,38,38,.15)}
 .pam{background:#FFFBEB;color:#D97706;border-color:rgba(217,119,6,.15)}
 .pb{background:#EFF6FF;color:#2563EB;border-color:rgba(37,99,235,.15)}
 .pe{background:var(--offb);color:var(--dusty);border-color:var(--border2)}
-/* BARS */
 .bars{display:flex;flex-direction:column;gap:7px}
 .br{display:flex;align-items:center;gap:7px}
-.bl{font-size:10px;color:var(--text3);width:64px;text-align:right;flex-shrink:0;letter-spacing:.3px}
-.bt{flex:1;height:5px;background:var(--offb);overflow:hidden}
-.bf{height:100%;transition:width .6s}
-.bv{font-size:10px;color:var(--text2);width:36px;font-family:'DM Mono',monospace}
-/* AI BANNER */
+.bl{font-size:10px;color:var(--mauve);width:64px;text-align:right;flex-shrink:0;letter-spacing:.3px}
+.bt{flex:1;height:5px;background:var(--offb)}
+.bf{height:100%;transition:width .5s}
+.bv{font-size:10px;color:var(--earth);width:36px;font-family:'DM Mono',monospace}
 .ai-ban{background:var(--offb);border:1px solid var(--border2);border-left:3px solid var(--soil);padding:11px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
 .ai-bi{width:18px;height:18px;background:var(--soil);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .ai-bt{font-size:11px;color:var(--earth);line-height:1.6;letter-spacing:.2px}
 .ai-bt strong{color:var(--soil);font-weight:400}
-/* TABLE */
 .tbl{width:100%;border-collapse:collapse;font-size:11px}
-.tbl th{font-size:8.5px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);padding:0 10px 8px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
-.tbl td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:middle;letter-spacing:.2px}
+.tbl th{font-size:8px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);padding:0 10px 8px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--earth);vertical-align:middle;letter-spacing:.2px}
 .tbl tr:last-child td{border-bottom:none}
 .tbl tr:hover td{background:var(--offb)}
 .td-n{font-weight:400;color:var(--soil);font-size:11.5px}
 .td-m{font-family:'DM Mono',monospace;font-size:10px}
-/* SCORE BARS */
 .sbw{display:flex;align-items:center;gap:6px}
 .sbt{flex:1;height:4px;background:var(--offb)}
 .sbf{height:100%}
 .sbn{font-size:10px;font-weight:400;font-family:'DM Mono',monospace;width:24px;text-align:right}
-/* CHART WRAP */
 .cw{position:relative;width:100%}
-/* FLAGS */
 .flag{display:flex;align-items:flex-start;gap:8px;padding:9px 11px;font-size:11px;line-height:1.55;margin-bottom:5px;letter-spacing:.2px}
 .fw{background:#FFFBEB;color:#92400E;border-left:2px solid #D97706}
 .fok{background:#F0FDF4;color:#166534;border-left:2px solid #22C55E}
-.fai{background:var(--ai-bg);color:#4338CA;border-left:2px solid var(--ai)}
-.fi{flex-shrink:0;font-size:12px}
-/* FORMS */
-.fsel,.finp,.fta{background:var(--offb);border:1px solid var(--border);padding:7px 10px;font-size:11px;font-family:inherit;font-weight:300;color:var(--text1);outline:none;transition:border-color .15s;width:100%;letter-spacing:.2px}
+.fai{background:#EEF2FF;color:#4338CA;border-left:2px solid #6366F1}
+.fi{flex-shrink:0}
+.fsel,.finp,.fta{background:var(--offb);border:1px solid var(--border);padding:7px 10px;font-size:11px;font-family:inherit;font-weight:300;color:var(--soil);outline:none;width:100%;letter-spacing:.2px}
 .fsel:focus,.finp:focus,.fta:focus{border-color:var(--soil)}
-.fta{resize:vertical;min-height:70px}
+.fta{resize:vertical;min-height:64px}
 .flbl{font-size:8px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-bottom:4px;display:block}
 .frow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.ffield{display:flex;flex-direction:column}
-/* ANALYSE BUTTON */
-.ana{width:100%;padding:10px;background:var(--soil);color:var(--white);border:none;font-size:11px;font-family:inherit;font-weight:300;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .15s}
+.ffield{display:flex;flex-direction:column;margin-bottom:8px}
+.ana{width:100%;padding:9px;background:var(--soil);color:#fff;border:none;font-size:10px;font-family:inherit;font-weight:300;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
 .ana:hover{background:var(--earth)}
-/* CALENDAR */
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border)}
 .cal-dh{padding:5px;font-size:8px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);text-align:center;background:var(--offb)}
-.cal-day{background:var(--white);min-height:88px;padding:6px;cursor:pointer;position:relative}
+.cal-day{background:#fff;min-height:90px;padding:5px;cursor:pointer;position:relative}
 .cal-day:hover{background:var(--offb)}
-.cal-num{font-size:11px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;margin-bottom:3px;letter-spacing:.5px}
-.cal-num.today{background:var(--soil);color:var(--white)}
+.cal-num{font-size:11px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;margin-bottom:3px;letter-spacing:.3px}
+.cal-num.today{background:var(--soil);color:#fff}
 .cal-num.wknd{color:var(--mauve)}
-.cal-post{display:flex;align-items:center;gap:3px;padding:2px 5px;margin-bottom:2px;cursor:pointer;font-size:8.5px;border-left:2px solid transparent}
-.cal-plus{position:absolute;bottom:4px;right:6px;font-size:13px;color:var(--mauve);opacity:.35}
-/* MODAL */
-.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(43,21,23,.5);z-index:999;align-items:center;justify-content:center}
+.cal-post{display:flex;align-items:center;gap:3px;padding:2px 4px;margin-bottom:2px;cursor:pointer;font-size:8.5px;border-left:2px solid transparent}
+.cal-post.strong{background:rgba(34,197,94,.07)}
+.cal-post.weak{background:rgba(245,158,11,.06)}
+.cal-camp{font-size:7.5px;padding:2px 4px;margin-bottom:2px;background:#EFF6FF;border-left:2px solid #3B82F6;color:#1D4ED8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.5px}
+.cal-plus{position:absolute;bottom:4px;right:5px;font-size:13px;color:var(--mauve);opacity:.3}
+.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(43,21,23,.45);z-index:999;align-items:center;justify-content:center}
 .modal-bg.open{display:flex}
-.modal{background:var(--white);padding:24px;width:460px;max-height:85vh;overflow-y:auto;border:1px solid var(--border)}
-.modal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal{background:#fff;padding:22px;width:500px;max-height:88vh;overflow-y:auto;border:1px solid var(--border)}
+.modal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .modal-t{font-size:13px;font-weight:400;letter-spacing:1px;color:var(--soil)}
 .modal-x{border:none;background:transparent;font-size:20px;cursor:pointer;color:var(--mauve);line-height:1}
-/* CONNECTIONS */
+.intel{background:var(--offb);border:1px solid var(--border2);border-left:3px solid var(--soil);padding:12px 14px;margin-bottom:14px}
+.intel-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.intel-cell{background:#fff;border:1px solid var(--border);padding:9px;text-align:center}
+.intel-v{font-size:15px;font-weight:300;color:var(--soil);letter-spacing:-.5px}
+.intel-l{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px}
+.proj-wrap{background:var(--soil);padding:16px 18px;margin-bottom:12px;display:none}
+.proj-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.1);margin-top:12px}
+.proj-cell{background:#3A2124;padding:11px;text-align:center}
+.proj-v{font-size:18px;font-weight:300;letter-spacing:-1px;color:#fff}
+.proj-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#B59FA1;margin-top:3px}
 .plat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
-.plat-c{background:var(--white);border:1px solid var(--border);padding:14px}
-.plat-c.conn{border-color:rgba(21,128,61,.25);background:#FAFFFE}
-.plat-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.plat-c{background:#fff;border:1px solid var(--border);padding:13px}
+.plat-c.conn{border-color:rgba(21,128,61,.25)}
+.plat-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
 .plat-ico{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:400;letter-spacing:1px;flex-shrink:0}
 .plat-dot{width:6px;height:6px;border-radius:50%}
 .dot-on{background:#22C55E}.dot-off{background:var(--border2)}
 .plat-n{font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--soil);margin-bottom:2px}
 .plat-d{font-size:9px;color:var(--mauve);line-height:1.5;letter-spacing:.2px}
-.plat-btn{margin-top:10px;width:100%;padding:6px;font-size:9px;font-family:inherit;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--text3)}
+.plat-btn{margin-top:10px;width:100%;padding:6px;font-size:9px;font-family:inherit;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--mauve)}
 .plat-btn:hover{background:var(--offb)}
 .plat-btn.conn{background:#F0FDF4;color:#15803D;border-color:rgba(21,128,61,.25)}
-/* CHAT */
 .chat-wrap{max-width:600px;margin:0 auto}
 .cmsg{display:flex;gap:9px;margin-bottom:13px}
 .cmsg.user{flex-direction:row-reverse}
-.cbub{max-width:82%;padding:10px 14px;font-size:12px;line-height:1.6;letter-spacing:.2px}
-.cmsg.user .cbub{background:var(--soil);color:var(--white)}
-.cmsg.ai .cbub{background:var(--white);border:1px solid var(--border);color:var(--text1)}
+.cbub{max-width:82%;padding:10px 13px;font-size:12px;line-height:1.6;letter-spacing:.2px}
+.cmsg.user .cbub{background:var(--soil);color:#fff}
+.cmsg.ai .cbub{background:#fff;border:1px solid var(--border);color:var(--soil)}
 .cav{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:400;letter-spacing:1px}
-.cmsg.user .cav{background:var(--soil);color:var(--white)}
-.cmsg.ai .cav{background:var(--earth);color:var(--white)}
-.cviz{background:var(--offb);border:1px solid var(--border);padding:12px;margin-top:8px}
-.chat-inp{flex:1;background:var(--white);border:1px solid var(--border);padding:8px 12px;font-size:12px;font-family:inherit;font-weight:300;color:var(--text1);outline:none;letter-spacing:.2px}
+.cmsg.user .cav{background:var(--soil);color:#fff}
+.cmsg.ai .cav{background:var(--earth);color:#fff}
+.cviz{background:var(--offb);border:1px solid var(--border);padding:11px;margin-top:8px}
+.chat-inp{flex:1;background:#fff;border:1px solid var(--border);padding:8px 12px;font-size:12px;font-family:inherit;font-weight:300;color:var(--soil);outline:none}
 .chat-inp:focus{border-color:var(--soil)}
 .chat-row{display:flex;gap:7px;margin-top:13px}
 .chat-send{width:34px;height:34px;background:var(--soil);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-/* DASHBOARD BUILDER */
-.db-field{display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--border);background:var(--offb);cursor:pointer;font-size:10.5px;color:var(--text2);margin-bottom:3px;letter-spacing:.2px}
+.db-field{display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--border);background:var(--offb);cursor:pointer;font-size:10.5px;color:var(--earth);margin-bottom:3px;letter-spacing:.2px}
 .db-field:hover{border-color:var(--soil);color:var(--soil)}
 .db-active{display:flex;align-items:center;gap:8px;padding:6px 9px;background:var(--offb);border:1px solid var(--border);margin-bottom:4px}
-/* MISC */
 .sec-ttl{font-size:8px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:var(--mauve);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .ch-tabs{display:flex;gap:1px;margin-bottom:12px;background:var(--offb);border:1px solid var(--border);padding:3px;width:fit-content}
-.ch-tab{padding:4px 12px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:var(--text3);background:none;border:none;font-family:inherit;font-weight:300}
+.ch-tab{padding:4px 12px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:var(--mauve);background:none;border:none;font-family:inherit;font-weight:300}
 .ch-tab:hover{color:var(--soil)}
-.ch-tab.active{background:var(--white);color:var(--soil);font-weight:400}
-/* SCORE RING */
-.score-ring{position:relative;width:80px;height:80px;flex-shrink:0}
+.ch-tab.active{background:#fff;color:var(--soil);font-weight:400}
+.pf-tabs{display:flex;gap:1px;background:var(--offb);border:1px solid var(--border);padding:3px;width:fit-content;margin-bottom:12px}
+.pf-tab{padding:4px 11px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:var(--mauve);background:none;border:none;font-family:inherit;font-weight:300}
+.pf-tab.active{background:#fff;color:var(--soil);font-weight:400}
+.score-ring{position:relative;width:78px;height:78px;flex-shrink:0}
 .score-ring canvas{position:absolute;top:0;left:0}
 .score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;font-weight:300;color:var(--soil)}
-/* PREDICTIONS */
-.pred{background:var(--offb);border:1px solid var(--border);padding:12px;display:flex;gap:14px;align-items:center}
-.pred-v{font-size:17px;font-weight:300;letter-spacing:-.5px;color:var(--soil)}
+.pred{background:var(--offb);border:1px solid var(--border);padding:11px;display:flex;gap:14px;align-items:center}
+.pred-v{font-size:16px;font-weight:300;letter-spacing:-.5px;color:var(--soil)}
 .pred-k{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px}
-.pred-div{width:1px;height:30px;background:var(--border2)}
-/* COMPETITOR CARDS */
-.comp-c{background:var(--white);border:1px solid var(--border);padding:14px;margin-bottom:9px}
-.comp-h{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.pred-div{width:1px;height:28px;background:var(--border2)}
+.comp-c{background:#fff;border:1px solid var(--border);padding:13px;margin-bottom:9px}
+.comp-h{display:flex;align-items:center;gap:9px;margin-bottom:11px}
 .comp-av{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:400;letter-spacing:1px;flex-shrink:0}
 .comp-n{font-size:12px;font-weight:400;letter-spacing:.5px;color:var(--soil)}
 .comp-m{font-size:10px;color:var(--mauve);letter-spacing:.2px}
-.ci-tip{font-size:11px;color:var(--text2);display:flex;gap:5px;line-height:1.55;margin-bottom:5px;letter-spacing:.2px}
-/* REPORTS */
-.rep-ok{background:#F0FDF4;border:1px solid rgba(21,128,61,.2);border-left:3px solid #22C55E;padding:13px}
-.rep-no{background:#FEF2F2;border:1px solid rgba(220,38,38,.15);border-left:3px solid #EF4444;padding:13px}
+.ci-tip{font-size:11px;color:var(--earth);display:flex;gap:5px;line-height:1.55;margin-bottom:5px;letter-spacing:.2px}
+.rep-ok{background:#F0FDF4;border:1px solid rgba(21,128,61,.2);border-left:3px solid #22C55E;padding:13px;margin-bottom:10px}
+.rep-no{background:#FEF2F2;border:1px solid rgba(220,38,38,.15);border-left:3px solid #EF4444;padding:13px;margin-bottom:10px}
 .rep-sec{font-size:8px;font-weight:400;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px}
 .rep-item{font-size:11px;line-height:1.6;margin-bottom:7px;letter-spacing:.2px}
-.sched-c{background:var(--white);border:1px solid var(--border);padding:14px}
+.sched-c{background:#fff;border:1px solid var(--border);padding:13px}
 .sched-h{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
-/* PIPELINE STRIP */
-.pipe-strip{border:1px solid var(--border);padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.pipe-strip.green{background:#F0FDF4;border-color:rgba(21,128,61,.2);border-left:3px solid #22C55E}
-.pipe-strip.blue{background:#EFF6FF;border-color:rgba(37,99,235,.2);border-left:3px solid #3B82F6}
-.pipe-strip.neutral{background:var(--offb);border-color:var(--border);border-left:3px solid var(--dusty)}
+.pipe-row{padding:11px 14px;margin-bottom:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pipe-row.green{background:#F0FDF4;border:1px solid rgba(21,128,61,.2);border-left:3px solid #22C55E}
+.pipe-row.blue{background:#EFF6FF;border:1px solid rgba(37,99,235,.2);border-left:3px solid #3B82F6}
+.pipe-row.neutral{background:var(--offb);border:1px solid var(--border);border-left:3px solid var(--dusty)}
 </style>
 </head>
 <body>
 <div class="shell">
-
-<!-- SIDEBAR -->
 <div class="sb">
   <div class="sb-logo">
-    <svg class="sb-ecg" viewBox="0 0 100 28" width="62" height="28" xmlns="http://www.w3.org/2000/svg">
+    <svg class="sb-ecg" viewBox="0 0 100 28" width="58" height="28">
       <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#927071"/><stop offset="50%" stop-color="#4F362F"/><stop offset="100%" stop-color="#2B1517"/></linearGradient></defs>
       <polyline points="0,14 22,14 27,14 31,3 36,25 40,7 44,21 48,14 100,14" fill="none" stroke="url(#lg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -243,166 +216,135 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
   <div class="sb-nav">
     <span class="sec-lbl">Overview</span>
     <button class="nav-item active" onclick="go(this,'overview')">
-      <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-      Performance hub
+      <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>Performance hub
     </button>
     <button class="nav-item" onclick="go(this,'ai')">
-      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg>
-      AI insights
-      <span class="nav-badge">3</span>
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg>AI insights<span class="nav-badge">3</span>
     </button>
-    <span class="sec-lbl">Intelligence</span>
-
-
+    <span class="sec-lbl">Planning</span>
     <button class="nav-item" onclick="go(this,'planner')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="12" height="11" rx="1"/><path d="M5 2v2M11 2v2M2 7h12" stroke-linecap="round"/></svg>
-      Content planner
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="12" height="11" rx="1"/><path d="M5 2v2M11 2v2M2 7h12" stroke-linecap="round"/></svg>Content planner
     </button>
     <span class="sec-lbl">Channels</span>
     <div class="nav-sub active" onclick="goSub(this,'instagram')"><span class="dot" style="background:#D4537E"></span>Instagram</div>
     <div class="nav-sub" onclick="goSub(this,'linkedin')"><span class="dot" style="background:#3B82F6"></span>LinkedIn</div>
     <div class="nav-sub" onclick="goSub(this,'tiktok')"><span class="dot" style="background:#2B1517"></span>TikTok</div>
-    <div class="nav-sub" onclick="goSub(this,'youtube')" style="color:var(--blush)"><span class="dot" style="background:#EF4444;opacity:.4"></span>YouTube <span style="font-size:8px;background:var(--offb);color:var(--dusty);padding:1px 6px;border:1px solid var(--border2);margin-left:3px;letter-spacing:1px">soon</span></div>
+    <div class="nav-sub" style="color:var(--blush)" onclick="goSub(this,'youtube')"><span class="dot" style="background:#EF4444;opacity:.4"></span>YouTube <span style="font-size:8px;background:var(--offb);color:var(--dusty);padding:1px 5px;border:1px solid var(--border2);margin-left:3px">soon</span></div>
     <span class="sec-lbl">Reports</span>
     <button class="nav-item" onclick="go(this,'reports')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 2h8a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M5.5 6h5M5.5 8.5h5M5.5 11h3" stroke-linecap="round"/></svg>
-      Reports &amp; schedules
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 2h8a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M5.5 6h5M5.5 8.5h5M5.5 11h3" stroke-linecap="round"/></svg>Reports &amp; schedules
     </button>
     <button class="nav-item" onclick="go(this,'dashbuilder')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="1.5" width="5" height="7" rx=".5"/><rect x="9.5" y="1.5" width="5" height="4" rx=".5"/><rect x="1.5" y="10.5" width="13" height="4" rx=".5"/><rect x="9.5" y="7.5" width="5" height="7" rx=".5"/></svg>
-      Dashboard builder
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="1.5" width="5" height="7" rx=".5"/><rect x="9.5" y="1.5" width="5" height="4" rx=".5"/><rect x="1.5" y="10.5" width="13" height="4" rx=".5"/><rect x="9.5" y="7.5" width="5" height="7" rx=".5"/></svg>Dashboard builder
     </button>
     <button class="nav-item" onclick="go(this,'connections')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="2"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke-linecap="round"/></svg>
-      Connections
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="2"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke-linecap="round"/></svg>Connections
     </button>
   </div>
   <div class="sb-foot">
     <div class="sb-av">B3</div>
-    <div class="sb-info"><div class="sb-name">B3 Studio</div><div class="sb-plan">Growth plan</div></div>
+    <div><div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--soil)">B3 Studio</div><div style="font-size:9px;letter-spacing:1px;color:var(--mauve)">Growth plan</div></div>
   </div>
 </div>
-
-<!-- MAIN -->
 <div class="main">
   <div class="topbar">
     <span class="topbar-title" id="tb-title">Performance hub</span>
-    <div class="tb-tabs" id="tb-tabs">
-      <button class="tb-tab active">Overview</button>
-      <button class="tb-tab">Paid vs organic</button>
-      <button class="tb-tab">By campaign</button>
-    </div>
-    <div class="tb-r">
-      <button class="btn">Last 30 days ↓</button>
-      <button class="btn prim" id="tb-action">+ Add widget</button>
-    </div>
+    <div class="tb-tabs" id="tb-tabs"><button class="tb-tab active">Overview</button><button class="tb-tab">Paid vs organic</button><button class="tb-tab">By campaign</button></div>
+    <div class="tb-r"><button class="btn">Last 30 days</button><button class="btn prim" id="tb-action">+ Add widget</button></div>
   </div>
-
   <div class="aibar" id="aibar">
     <div class="ai-orb"><svg viewBox="0 0 16 16" fill="white" width="10" height="10"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div>
-    <div class="ai-iw">
-      <input class="ai-inp" id="ai-inp" placeholder="Ask anything — e.g. which posts drove the most link taps last month?">
-      <button class="ai-send" onclick="sendAI()"><svg viewBox="0 0 16 16" fill="white" width="10" height="10"><path d="M2 8L14 2 8 14l-1.5-4.5L2 8z"/></svg></button>
-    </div>
+    <div class="ai-iw"><input class="ai-inp" id="ai-inp" placeholder="Ask anything — which posts drove the most link taps last month?"><button class="ai-send" onclick="sendAI()"><svg viewBox="0 0 16 16" fill="white" width="10" height="10"><path d="M2 8L14 2 8 14l-1.5-4.5L2 8z"/></svg></button></div>
     <div class="chip-row">
       <span class="chip" onclick="chipQ('Best time to post this week?')">Best time to post</span>
-      <span class="chip" onclick="chipQ('Reels vs carousels — what converts more?')">Reels vs carousels</span>
-      <span class="chip" onclick="chipQ('Which competitor is growing fastest?')">Competitor growth</span>
-      <span class="chip" onclick="chipQ('What content should I post next?')">What to post next</span>
+      <span class="chip" onclick="chipQ('Reels vs carousels?')">Reels vs carousels</span>
+      <span class="chip" onclick="chipQ('What to post next?')">What to post next</span>
     </div>
   </div>
-
   <div class="content">
 
   <!-- OVERVIEW -->
   <div class="screen active" id="sc-overview">
-    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Reels outperform carousels by 3.4×</strong> on link taps this month. Your engagement rate (4.8%) is 1.7pp above B2B services average. Top performer: "Client result reveal" — 1,240 saves. Recommended: Reel, Tue–Thu 9–11am, hook with outcome in first 2s.</div></div>
+    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Reels outperform carousels by 3.4x</strong> on link taps this month. Engagement rate (4.8%) is 1.7pp above B2B average. Top performer: "Client result reveal" — 1,240 saves.</div></div>
     <div class="g4">
-      <div class="mc"><div class="mc-l">Cross-channel reach</div><div class="mc-v">214K</div><div class="mc-d up">↑ 18% all channels</div></div>
-      <div class="mc"><div class="mc-l">Avg eng. rate</div><div class="mc-v">4.8%</div><div class="mc-d up">↑ 0.6pp · above avg</div></div>
-      <div class="mc"><div class="mc-l">Total link taps</div><div class="mc-v">3,840</div><div class="mc-d up">↑ 34% vs last month</div></div>
-      <div class="mc"><div class="mc-l">Blended ROAS</div><div class="mc-v">2.8×</div><div class="mc-d up">↑ 0.3× vs last month</div></div>
+      <div class="mc"><div class="mc-l">Cross-channel reach</div><div class="mc-v">214K</div><div class="mc-d up">Up 18% all channels</div></div>
+      <div class="mc"><div class="mc-l">Avg eng. rate</div><div class="mc-v">4.8%</div><div class="mc-d up">Up 0.6pp — above avg</div></div>
+      <div class="mc"><div class="mc-l">Total link taps</div><div class="mc-v">3,840</div><div class="mc-d up">Up 34% vs last month</div></div>
+      <div class="mc"><div class="mc-l">Blended ROAS</div><div class="mc-v">2.8x</div><div class="mc-d up">Up 0.3x vs last month</div></div>
     </div>
-    <!-- PIPELINE ATTRIBUTION -->
-    <div class="card mb">
-      <div class="card-h">
-        <div><div class="card-t">Pipeline attribution — social to revenue</div><div class="card-s">UTM → GA4 → CRM · auto-tracked</div></div>
-        <span class="pill pg">HubSpot connected</span>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:0;align-items:center">
-        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:18px;font-weight:300;color:var(--soil);letter-spacing:-1px">3,840</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Link taps</div></div>
-        <div style="text-align:center;color:var(--blush);font-size:14px">→</div>
-        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:18px;font-weight:300;color:var(--soil);letter-spacing:-1px">1,240</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Sessions</div></div>
-        <div style="text-align:center;color:var(--blush);font-size:14px">→</div>
-        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:18px;font-weight:300;color:var(--soil);letter-spacing:-1px">84</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Leads</div></div>
-        <div style="text-align:center;color:var(--blush);font-size:14px">→</div>
-        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:18px;font-weight:300;color:var(--soil);letter-spacing:-1px">11</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Demos</div></div>
-        <div style="text-align:center;color:var(--blush);font-size:14px">→</div>
-        <div style="text-align:center;padding:10px 4px"><div style="font-size:18px;font-weight:300;color:#15803D;letter-spacing:-1px">£38,400</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Pipeline</div></div>
+    <div class="card">
+      <div class="card-h"><div><div class="card-t">Pipeline attribution — social to revenue</div><div class="card-s">UTM to GA4 to CRM — auto-tracked</div></div><span class="pill pg">HubSpot connected</span></div>
+      <div style="display:grid;grid-template-columns:repeat(9,minmax(0,1fr));align-items:center;gap:0">
+        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:17px;font-weight:300;color:var(--soil);letter-spacing:-1px">3,840</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Link taps</div></div>
+        <div style="text-align:center;color:var(--blush);font-size:13px">&#8594;</div>
+        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:17px;font-weight:300;color:var(--soil);letter-spacing:-1px">1,240</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Sessions</div></div>
+        <div style="text-align:center;color:var(--blush);font-size:13px">&#8594;</div>
+        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:17px;font-weight:300;color:var(--soil);letter-spacing:-1px">84</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Leads</div></div>
+        <div style="text-align:center;color:var(--blush);font-size:13px">&#8594;</div>
+        <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:17px;font-weight:300;color:var(--soil);letter-spacing:-1px">11</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Demos</div></div>
+        <div style="text-align:center;color:var(--blush);font-size:13px">&#8594;</div>
+        <div style="text-align:center;padding:10px 4px"><div style="font-size:17px;font-weight:300;color:#15803D;letter-spacing:-1px">&#163;38.4K</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Pipeline</div></div>
       </div>
       <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:14px;flex-wrap:wrap">
-        <div style="font-size:10px;color:var(--text2);display:flex;align-items:center;gap:5px;letter-spacing:.3px"><span class="dot" style="background:#D4537E"></span>Instagram — 58% of leads · £22K</div>
-        <div style="font-size:10px;color:var(--text2);display:flex;align-items:center;gap:5px;letter-spacing:.3px"><span class="dot" style="background:#3B82F6"></span>LinkedIn — 32% · £12.3K</div>
-        <div style="font-size:10px;color:var(--text2);display:flex;align-items:center;gap:5px;letter-spacing:.3px"><span class="dot" style="background:#2B1517"></span>TikTok — 10% · £4.1K</div>
+        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#D4537E"></span>Instagram — 58% of leads · &#163;22K</span>
+        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#3B82F6"></span>LinkedIn — 32% · &#163;12.3K</span>
+        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#2B1517"></span>TikTok — 10% · &#163;4.1K</span>
       </div>
     </div>
     <div class="g2">
-      <div class="card"><div class="card-h"><div><div class="card-t">Cross-channel reach (last 30 days)</div><div class="card-s">Weekly by platform</div></div><span class="pill pe">trending up</span></div><div class="cw" style="height:168px"><canvas id="ch-overview"></canvas></div></div>
-      <div class="card"><div class="card-h"><div class="card-t">Post type performance score</div><div class="card-s">Avg AI score by format</div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div><div class="card-t">Cross-channel reach (last 30 days)</div><div class="card-s">Weekly by platform</div></div><span class="pill pe">trending up</span></div><div class="cw" style="height:165px"><canvas id="ch-overview"></canvas></div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Post type performance score</div><div class="card-s">Avg AI score by format</div></div>
         <div class="bars" style="margin-top:6px">
           <div class="br"><span class="bl">Reels</span><div class="bt"><div class="bf" style="width:88%;background:#22C55E"></div></div><span class="bv" style="color:#15803D">88</span></div>
-          <div class="br"><span class="bl">Carousels</span><div class="bt"><div class="bf" style="width:74%;background:var(--ai)"></div></div><span class="bv" style="color:var(--ai)">74</span></div>
+          <div class="br"><span class="bl">Carousels</span><div class="bt"><div class="bf" style="width:74%;background:#6366F1"></div></div><span class="bv" style="color:#6366F1">74</span></div>
           <div class="br"><span class="bl">Articles</span><div class="bt"><div class="bf" style="width:68%;background:#3B82F6"></div></div><span class="bv" style="color:#3B82F6">68</span></div>
           <div class="br"><span class="bl">Stories</span><div class="bt"><div class="bf" style="width:54%;background:var(--dusty)"></div></div><span class="bv" style="color:var(--dusty)">54</span></div>
           <div class="br"><span class="bl">Static</span><div class="bt"><div class="bf" style="width:38%;background:var(--blush)"></div></div><span class="bv">38</span></div>
         </div>
       </div>
     </div>
-    <div class="card mb">
+    <div style="height:10px"></div>
+    <div class="card">
       <div class="card-h">
-        <div><div class="card-t">Top performing posts — all channels</div><div class="card-s">Ranked by AI performance score</div></div>
+        <div><div class="card-t">Top performing posts — all channels</div><div class="card-s">Ranked by performance data</div></div>
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">Campaign:</span>
-          <select class="fsel" style="padding:3px 8px;font-size:10px;width:auto" onchange="filterCampaign(this.value)">
-            <option value="">All posts</option>
-            <option>Q2 product launch</option><option>Spring awareness</option>
-            <option>Thought leadership series</option><option>Client results showcase</option>
-          </select>
-          <span class="pill pa">AI ranked</span>
+          <select class="fsel" style="padding:3px 8px;font-size:10px;width:auto"><option>All posts</option><option>Q2 launch</option><option>Spring awareness</option></select>
+          <span class="pill pa">data ranked</span>
         </div>
       </div>
-      <table class="tbl"><thead><tr><th>Post</th><th>Platform</th><th>Format</th><th>Reach</th><th>Eng. rate</th><th>Link taps</th><th>AI score</th></tr></thead>
+      <table class="tbl"><thead><tr><th>Post</th><th>Platform</th><th>Format</th><th>Reach</th><th>Eng. rate</th><th>Link taps</th><th>Score</th></tr></thead>
       <tbody>
-        <tr><td><span class="td-n">Client result reveal 🔥</span></td><td><span class="pill" style="background:#FBEAF0;color:#993556;border-color:rgba(153,53,86,.15)">IG</span></td><td><span class="pill pa">Reel</span></td><td class="td-m">12,400</td><td class="up">7.2%</td><td>480</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:94%;background:#22C55E"></div></div><span class="sbn" style="color:#15803D">94</span></div></td></tr>
+        <tr><td><span class="td-n">Client result reveal</span></td><td><span class="pill" style="background:#FBEAF0;color:#993556;border-color:rgba(153,53,86,.15)">IG</span></td><td><span class="pill pa">Reel</span></td><td class="td-m">12,400</td><td class="up">7.2%</td><td>480</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:94%;background:#22C55E"></div></div><span class="sbn" style="color:#15803D">94</span></div></td></tr>
         <tr><td><span class="td-n">5 AI myths debunked</span></td><td><span class="pill" style="background:#FBEAF0;color:#993556;border-color:rgba(153,53,86,.15)">IG</span></td><td><span class="pill pa">Reel</span></td><td class="td-m">9,800</td><td class="up">6.1%</td><td>310</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:87%;background:#22C55E"></div></div><span class="sbn" style="color:#15803D">87</span></div></td></tr>
         <tr><td><span class="td-n">LinkedIn thought leadership</span></td><td><span class="pill" style="background:#EFF6FF;color:#2563EB;border-color:rgba(37,99,235,.15)">LI</span></td><td><span class="pill pb">Article</span></td><td class="td-m">8,200</td><td>4.3%</td><td>220</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:79%;background:#3B82F6"></div></div><span class="sbn" style="color:#3B82F6">79</span></div></td></tr>
         <tr><td><span class="td-n">TikTok agency process POV</span></td><td><span class="pill" style="background:var(--offb);color:var(--earth);border-color:var(--border2)">TK</span></td><td><span class="pill pa">Video</span></td><td class="td-m">24,100</td><td class="up">8.4%</td><td>540</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:91%;background:#22C55E"></div></div><span class="sbn" style="color:#15803D">91</span></div></td></tr>
-        <tr><td><span class="td-n">Behind the scenes: client onboard</span></td><td><span class="pill" style="background:#FBEAF0;color:#993556;border-color:rgba(153,53,86,.15)">IG</span></td><td><span class="pill pb">Carousel</span></td><td class="td-m">7,200</td><td>4.8%</td><td>190</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:72%;background:var(--ai)"></div></div><span class="sbn" style="color:var(--ai)">72</span></div></td></tr>
+        <tr><td><span class="td-n">Behind scenes: client onboard</span></td><td><span class="pill" style="background:#FBEAF0;color:#993556;border-color:rgba(153,53,86,.15)">IG</span></td><td><span class="pill pb">Carousel</span></td><td class="td-m">7,200</td><td>4.8%</td><td>190</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:72%;background:#6366F1"></div></div><span class="sbn" style="color:#6366F1">72</span></div></td></tr>
       </tbody></table>
     </div>
     <div class="g3">
-      <div class="card"><div class="card-h"><div class="card-t">Channel split</div></div><div class="cw" style="height:120px"><canvas id="ch-donut"></canvas></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Channel split</div></div><div class="cw" style="height:110px"><canvas id="ch-donut"></canvas></div>
         <div style="margin-top:8px;display:flex;flex-direction:column;gap:4px">
-          <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text2)"><span class="dot" style="background:#D4537E"></span>Instagram<span style="margin-left:auto;font-family:'DM Mono',monospace">48K</span></div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text2)"><span class="dot" style="background:#2B1517"></span>TikTok<span style="margin-left:auto;font-family:'DM Mono',monospace">82K</span></div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text2)"><span class="dot" style="background:#3B82F6"></span>LinkedIn<span style="margin-left:auto;font-family:'DM Mono',monospace">31K</span></div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--earth)"><span class="dot" style="background:#D4537E"></span>Instagram<span style="margin-left:auto;font-family:'DM Mono',monospace">48K</span></div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--earth)"><span class="dot" style="background:#2B1517"></span>TikTok<span style="margin-left:auto;font-family:'DM Mono',monospace">82K</span></div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--earth)"><span class="dot" style="background:#3B82F6"></span>LinkedIn<span style="margin-left:auto;font-family:'DM Mono',monospace">31K</span></div>
         </div>
       </div>
-      <div class="card"><div class="card-h"><div class="card-t">Best posting times</div><div class="card-s">Based on your history</div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Best posting times</div><div class="card-s">Based on your history</div></div>
         <div style="display:flex;flex-direction:column;gap:7px;margin-top:4px">
           <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve)">Instagram</div>
-          <div style="display:flex;gap:5px"><span class="pill pg">Tue 9–11am</span><span class="pill pg">Thu 9–11am</span></div>
+          <div style="display:flex;gap:5px"><span class="pill pg">Tue 9-11am</span><span class="pill pg">Thu 9-11am</span></div>
           <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-top:3px">TikTok</div>
-          <div style="display:flex;gap:5px"><span class="pill pg">Mon 6–9pm</span><span class="pill pg">Fri 6–9pm</span></div>
+          <div style="display:flex;gap:5px"><span class="pill pg">Mon 6-9pm</span><span class="pill pg">Fri 6-9pm</span></div>
           <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-top:3px">LinkedIn</div>
-          <div style="display:flex;gap:5px"><span class="pill pg">Wed 8–9am</span></div>
+          <div style="display:flex;gap:5px"><span class="pill pg">Wed 8-9am</span></div>
         </div>
       </div>
-      <div class="card"><div class="card-h"><div class="card-t">Industry benchmarks</div><div class="card-s">You vs B2B services avg</div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Industry benchmarks</div><div class="card-s">You vs B2B services avg</div></div>
         <div class="bars" style="margin-top:4px">
           <div class="br"><span class="bl" style="font-weight:400;color:var(--soil)">You</span><div class="bt"><div class="bf" style="width:78%;background:var(--soil)"></div></div><span class="bv">4.8%</span></div>
           <div class="br"><span class="bl">Comp. A</span><div class="bt"><div class="bf" style="width:60%;background:var(--blush)"></div></div><span class="bv">3.7%</span></div>
-          <div class="br"><span class="bl">Avg</span><div class="bt"><div class="bf" style="width:50%;background:var(--blush)"></div></div><span class="bv">3.1%</span></div>
+          <div class="br"><span class="bl">Average</span><div class="bt"><div class="bf" style="width:50%;background:var(--blush)"></div></div><span class="bv">3.1%</span></div>
           <div class="br"><span class="bl">Comp. B</span><div class="bt"><div class="bf" style="width:38%;background:var(--blush)"></div></div><span class="bv">2.4%</span></div>
         </div>
       </div>
@@ -412,17 +354,15 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
   <!-- AI INSIGHTS -->
   <div class="screen" id="sc-ai">
     <div class="chat-wrap">
-      <div class="cmsg ai"><div class="cav">AI</div><div><div class="cbub">Hi — I have full access to your Instagram, LinkedIn and TikTok data. Ask me anything: which content is working, what to post next, how you compare to competitors.</div>
+      <div class="cmsg ai"><div class="cav">AI</div><div><div class="cbub">Hi — I have access to your Instagram, LinkedIn and TikTok data. Ask me anything.</div>
         <div style="display:flex;gap:5px;margin-top:8px;flex-wrap:wrap">
-          <span class="chip" onclick="aiQ('Which posts drove the most link taps last month?')">Top link taps ↗</span>
-          <span class="chip" onclick="aiQ('What should I post next?')">What to post next ↗</span>
-          <span class="chip" onclick="aiQ('How do I compare to competitors?')">Competitor gap ↗</span>
+          <span class="chip" onclick="aiQ('Which posts drove the most link taps?')">Top link taps</span>
+          <span class="chip" onclick="aiQ('What should I post next?')">What to post next</span>
         </div>
       </div></div>
-      <div class="cmsg user"><div class="cav">B3</div><div class="cbub">Which Reels got the most link taps last month and why?</div></div>
-      <div class="cmsg ai"><div class="cav">AI</div><div><div class="cbub">Your top 3 Reels by link taps:<br><br><strong>1. "Client result reveal" — 480 taps</strong><br>Outcome-first hook in 2s, 7.2% engagement, 1,240 saves.<br><br><strong>2. "5 AI myths debunked" — 310 taps</strong><br>Educational format, 87/100 hook score. B2B audiences save before clicking.<br><br><strong>Pattern:</strong> All top 3 showed a clear outcome in the first 2 seconds + specific CTA. Static posts average 45 taps vs 330 for Reels.</div>
-        <div class="cviz">
-          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-bottom:8px">Link taps by top Reels</div>
+      <div class="cmsg user"><div class="cav">B3</div><div class="cbub">Which Reels got the most link taps last month?</div></div>
+      <div class="cmsg ai"><div class="cav">AI</div><div><div class="cbub">Your top 3 Reels by link taps:<br><br><strong>1. "Client result reveal" — 480 taps</strong><br>Outcome-first hook in 2s, 7.2% engagement, 1,240 saves.<br><br><strong>2. "5 AI myths debunked" — 310 taps</strong><br>Educational format, 87/100 data score.<br><br><strong>Pattern:</strong> All top 3 showed a clear outcome in the first 2 seconds plus a specific CTA.</div>
+        <div class="cviz"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-bottom:8px">Link taps by top Reels</div>
           <div class="bars">
             <div class="br"><span class="bl" style="font-size:10px">Client result</span><div class="bt"><div class="bf" style="width:82%;background:var(--earth)"></div></div><span class="bv">480</span></div>
             <div class="br"><span class="bl" style="font-size:10px">AI myths</span><div class="bt"><div class="bf" style="width:54%;background:var(--earth)"></div></div><span class="bv">310</span></div>
@@ -431,88 +371,69 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
         </div>
       </div></div>
       <div id="chat-thread"></div>
-      <div class="chat-row">
-        <input class="chat-inp" id="chat-inp" placeholder="Ask a follow-up..." onkeydown="if(event.key==='Enter')sendChat()">
-        <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 16 16" fill="white" width="13" height="13"><path d="M2 8L14 2 8 14l-1.5-4.5L2 8z"/></svg></button>
-      </div>
+      <div class="chat-row"><input class="chat-inp" id="chat-inp" placeholder="Ask a follow-up..." onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 16 16" fill="white" width="13" height="13"><path d="M2 8L14 2 8 14l-1.5-4.5L2 8z"/></svg></button></div>
     </div>
   </div>
 
   <!-- CONTENT PLANNER -->
   <div class="screen" id="sc-planner">
-    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Predictive content planner:</strong> Every post you schedule is matched against your historical data. See estimated reach, engagement, and pipeline before you post. Click "Project this month" for your full month forecast.</div></div>
-
-    <!-- Platform filter + controls -->
+    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Predictive planner:</strong> Every post is matched against your historical data. Reach estimates shown on calendar chips. Green = strong forecast. Amber = off-peak timing. Click "Project this month" for your full forecast.</div></div>
+    <!-- Projection banner -->
+    <div class="proj-wrap" id="proj-wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#B59FA1;margin-bottom:4px">Month forecast — April 2026</div><div style="font-size:12px;font-weight:400;letter-spacing:.5px;color:#fff">Based on your planned posts and historical data</div></div>
+        <button onclick="document.getElementById('proj-wrap').style.display='none'" style="border:none;background:transparent;color:#B59FA1;cursor:pointer;font-size:18px;line-height:1">x</button>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-cell"><div class="proj-v" id="proj-reach">-</div><div class="proj-l">Est. reach</div></div>
+        <div class="proj-cell"><div class="proj-v" id="proj-eng">-</div><div class="proj-l">Avg eng.</div></div>
+        <div class="proj-cell"><div class="proj-v" id="proj-taps">-</div><div class="proj-l">Est. taps</div></div>
+        <div class="proj-cell"><div class="proj-v" id="proj-pipe" style="color:#4ADE80">-</div><div class="proj-l">Est. pipeline</div></div>
+        <div class="proj-cell"><div class="proj-v" id="proj-posts">-</div><div class="proj-l">Posts planned</div></div>
+      </div>
+      <div id="proj-flags" style="margin-top:10px;display:flex;flex-direction:column;gap:5px"></div>
+    </div>
+    <!-- Controls -->
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-      <div style="display:flex;gap:1px;background:var(--offb);border:1px solid var(--border);padding:3px" id="plat-filter-tabs">
-        <button class="ch-tab active" onclick="setPlatFilter('all',this)">All channels</button>
-        <button class="ch-tab" onclick="setPlatFilter('ig',this)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#D4537E;margin-right:5px;vertical-align:middle"></span>Instagram</button>
-        <button class="ch-tab" onclick="setPlatFilter('li',this)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3B82F6;margin-right:5px;vertical-align:middle"></span>LinkedIn</button>
-        <button class="ch-tab" onclick="setPlatFilter('tk',this)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#2B1517;margin-right:5px;vertical-align:middle"></span>TikTok</button>
-        <button class="ch-tab" onclick="setPlatFilter('yt',this)"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#EF4444;opacity:.5;margin-right:5px;vertical-align:middle"></span>YouTube</button>
+      <div class="pf-tabs" id="pf-tabs">
+        <button class="pf-tab active" onclick="setPF('all',this)">All channels</button>
+        <button class="pf-tab" onclick="setPF('ig',this)"><span class="dot" style="background:#D4537E;margin-right:4px;vertical-align:middle"></span>Instagram</button>
+        <button class="pf-tab" onclick="setPF('li',this)"><span class="dot" style="background:#3B82F6;margin-right:4px;vertical-align:middle"></span>LinkedIn</button>
+        <button class="pf-tab" onclick="setPF('tk',this)"><span class="dot" style="background:#2B1517;margin-right:4px;vertical-align:middle"></span>TikTok</button>
+        <button class="pf-tab" onclick="setPF('yt',this)"><span class="dot" style="background:#EF4444;opacity:.5;margin-right:4px;vertical-align:middle"></span>YouTube</button>
       </div>
       <div style="margin-left:auto;display:flex;gap:6px">
-        <button class="btn" onclick="openAddCampaign()">+ Paid campaign</button>
-        <button class="btn" style="background:var(--offb);border-color:var(--soil);color:var(--soil);letter-spacing:1px" onclick="projectMonth()">◆ Project this month</button>
+        <button class="btn" onclick="openCampModal()">+ Paid campaign</button>
+        <button class="btn" style="border-color:var(--soil);color:var(--soil)" onclick="projectMonth()">Project this month</button>
         <button class="btn prim" onclick="openAdd(null)">+ Plan post</button>
       </div>
     </div>
-
-    <!-- Month projection banner (hidden until triggered) -->
-    <div id="projection-banner" style="display:none;margin-bottom:12px">
-      <div style="background:var(--soil);padding:16px 20px;color:var(--white)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div>
-            <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blush);margin-bottom:4px">Month forecast — April 2026</div>
-            <div style="font-size:13px;font-weight:400;letter-spacing:.5px">Based on your planned posts + historical data</div>
-          </div>
-          <button onclick="document.getElementById('projection-banner').style.display='none'" style="border:none;background:transparent;color:var(--blush);cursor:pointer;font-size:18px;line-height:1">×</button>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.08)">
-          <div style="background:var(--bark);padding:12px;text-align:center"><div style="font-size:20px;font-weight:300;letter-spacing:-1px;color:var(--white)" id="proj-reach">—</div><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--blush);margin-top:3px">Est. reach</div></div>
-          <div style="background:var(--bark);padding:12px;text-align:center"><div style="font-size:20px;font-weight:300;letter-spacing:-1px;color:var(--white)" id="proj-eng">—</div><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--blush);margin-top:3px">Avg eng. rate</div></div>
-          <div style="background:var(--bark);padding:12px;text-align:center"><div style="font-size:20px;font-weight:300;letter-spacing:-1px;color:var(--white)" id="proj-taps">—</div><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--blush);margin-top:3px">Est. link taps</div></div>
-          <div style="background:var(--bark);padding:12px;text-align:center"><div style="font-size:20px;font-weight:300;letter-spacing:-1px;color:#4ADE80" id="proj-pipe">—</div><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--blush);margin-top:3px">Est. pipeline</div></div>
-          <div style="background:var(--bark);padding:12px;text-align:center"><div style="font-size:20px;font-weight:300;letter-spacing:-1px;color:var(--white)" id="proj-posts">—</div><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--blush);margin-top:3px">Planned posts</div></div>
-        </div>
-        <div id="proj-flags" style="margin-top:10px;display:flex;flex-direction:column;gap:5px"></div>
-      </div>
-    </div>
-
-    <!-- Goals row -->
-    <div class="g2e mb">
-      <div class="card">
-        <div class="card-h"><div class="card-t">Posting volume goals</div><div class="card-s">Weekly targets per channel</div></div>
+    <div class="g2e" style="margin-bottom:10px">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-h"><div class="card-t">Volume goals</div><div class="card-s">Weekly targets</div></div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:#D4537E"></span><span style="font-size:11px;color:var(--text2);width:80px;letter-spacing:.3px">Instagram</span><input type="number" class="finp" style="width:48px;padding:4px 8px;text-align:center" value="4" min="1"><span style="font-size:10px;color:var(--mauve);letter-spacing:.3px">posts/week</span><div style="margin-left:auto;font-size:10px;color:#15803D;font-weight:400">4/4 this week ✓</div></div>
-          <div style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:#3B82F6"></span><span style="font-size:11px;color:var(--text2);width:80px;letter-spacing:.3px">LinkedIn</span><input type="number" class="finp" style="width:48px;padding:4px 8px;text-align:center" value="3" min="1"><span style="font-size:10px;color:var(--mauve);letter-spacing:.3px">posts/week</span><div style="margin-left:auto;font-size:10px;color:#D97706;font-weight:400">2/3 this week</div></div>
-          <div style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:#2B1517"></span><span style="font-size:11px;color:var(--text2);width:80px;letter-spacing:.3px">TikTok</span><input type="number" class="finp" style="width:48px;padding:4px 8px;text-align:center" value="4" min="1"><span style="font-size:10px;color:var(--mauve);letter-spacing:.3px">posts/week</span><div style="margin-left:auto;font-size:10px;color:#DC2626;font-weight:400">1/4 this week ↓</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:#D4537E"></span><span style="font-size:11px;color:var(--earth);width:80px">Instagram</span><input type="number" class="finp" style="width:44px;padding:4px 8px;text-align:center" value="4"><span style="font-size:10px;color:var(--mauve)">posts/wk</span><div style="margin-left:auto;font-size:10px;color:#15803D">4/4 ✓</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:#3B82F6"></span><span style="font-size:11px;color:var(--earth);width:80px">LinkedIn</span><input type="number" class="finp" style="width:44px;padding:4px 8px;text-align:center" value="3"><span style="font-size:10px;color:var(--mauve)">posts/wk</span><div style="margin-left:auto;font-size:10px;color:#D97706">2/3</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:#2B1517"></span><span style="font-size:11px;color:var(--earth);width:80px">TikTok</span><input type="number" class="finp" style="width:44px;padding:4px 8px;text-align:center" value="4"><span style="font-size:10px;color:var(--mauve)">posts/wk</span><div style="margin-left:auto;font-size:10px;color:#DC2626">1/4 ↓</div></div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-h"><div class="card-t">Reminder rules</div><div class="card-s">Auto-sent based on posting schedule</div></div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-h"><div class="card-t">Reminder rules</div><div class="card-s">Auto-sent reminders</div></div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--text2);flex:1;letter-spacing:.2px">Content ready before posting</span><select class="fsel" style="width:130px;padding:4px 8px"><option>24 hours before</option><option selected>48 hours before</option><option>72 hours before</option></select></div>
-          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--text2);flex:1;letter-spacing:.2px">First reminder</span><select class="fsel" style="width:130px;padding:4px 8px"><option>3 days before</option><option selected>5 days before</option><option>1 week before</option></select></div>
-          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--text2);flex:1;letter-spacing:.2px">Final reminder</span><select class="fsel" style="width:130px;padding:4px 8px"><option selected>1 day before</option><option>Morning of</option></select></div>
-          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--text2);flex:1;letter-spacing:.2px">Send to</span><input class="finp" style="width:170px;padding:4px 8px" value="team@b3studio.co.uk"></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--earth);flex:1">Content ready before posting</span><select class="fsel" style="width:130px;padding:4px 8px"><option>24 hours before</option><option selected>48 hours before</option><option>72 hours before</option></select></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--earth);flex:1">First reminder</span><select class="fsel" style="width:130px;padding:4px 8px"><option>3 days before</option><option selected>5 days before</option></select></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;color:var(--earth);flex:1">Send to</span><input class="finp" style="width:160px;padding:4px 8px" value="team@b3studio.co.uk"></div>
         </div>
       </div>
     </div>
-
-    <!-- Calendar -->
     <div class="card">
       <div class="card-h">
-        <div style="display:flex;align-items:center;gap:10px">
-          <button class="btn" onclick="calNav(-1)">‹</button>
-          <span class="card-t" id="cal-lbl">April 2026</span>
-          <button class="btn" onclick="calNav(1)">›</button>
-        </div>
+        <div style="display:flex;align-items:center;gap:10px"><button class="btn" onclick="calNav(-1)">&#8249;</button><span class="card-t" id="cal-lbl">April 2026</span><button class="btn" onclick="calNav(1)">&#8250;</button></div>
         <div style="display:flex;align-items:center;gap:6px">
-          <span style="font-size:9px;letter-spacing:1.5px;color:var(--mauve)">Legend:</span>
-          <span style="font-size:9px;color:var(--earth);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:#DCFCE7;border:1px solid rgba(21,128,61,.3);display:inline-block"></span>Strong forecast</span>
-          <span style="font-size:9px;color:var(--earth);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:#FFFBEB;border:1px solid rgba(217,119,6,.3);display:inline-block"></span>Weak forecast</span>
-          <span style="font-size:9px;color:var(--earth);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:#EFF6FF;border:1px solid rgba(59,130,246,.3);display:inline-block"></span>Paid campaign</span>
+          <span style="font-size:9px;color:var(--mauve);letter-spacing:.5px">Legend:</span>
+          <span style="font-size:9px;color:var(--earth);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:#F0FDF4;border:1px solid rgba(21,128,61,.3);display:inline-block"></span>Strong</span>
+          <span style="font-size:9px;color:var(--earth);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:#FFFBEB;border:1px solid rgba(217,119,6,.3);display:inline-block"></span>Off-peak</span>
+          <span style="font-size:9px;color:var(--earth);display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;background:#EFF6FF;border:1px solid rgba(59,130,246,.3);display:inline-block"></span>Paid</span>
         </div>
       </div>
       <div id="cal-wrap"></div>
@@ -521,26 +442,21 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
 
   <!-- INSTAGRAM -->
   <div class="screen" id="sc-instagram">
-    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Reels drive 3.4× more link taps than Stories.</strong> Your engagement rate (4.8%) is above the B2B services average by 1.7pp. Recommended: increase Reels to 4×/week and reduce static posts. Tue/Thu 9–11am optimal.</div></div>
-    <div class="g4 mb">
-      <div class="mc"><div class="mc-l">Total reach</div><div class="mc-v">48.2K</div><div class="mc-d up">↑ 12% vs last month</div></div>
-      <div class="mc"><div class="mc-l">Engagement rate</div><div class="mc-v">4.8%</div><div class="mc-d up">↑ 0.6pp · above avg</div></div>
-      <div class="mc"><div class="mc-l">Link taps</div><div class="mc-v">1,840</div><div class="mc-d up">↑ 34% vs last month</div></div>
-      <div class="mc"><div class="mc-l">Paid ROAS</div><div class="mc-v">3.2×</div><div class="mc-d dn">↓ 0.4× vs last month</div></div>
+    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Reels drive 3.4x more link taps than Stories.</strong> Your engagement rate (4.8%) is 1.7pp above B2B average. Tue/Thu 9-11am optimal.</div></div>
+    <div class="g4">
+      <div class="mc"><div class="mc-l">Total reach</div><div class="mc-v">48.2K</div><div class="mc-d up">Up 12% vs last month</div></div>
+      <div class="mc"><div class="mc-l">Engagement rate</div><div class="mc-v">4.8%</div><div class="mc-d up">Up 0.6pp — above avg</div></div>
+      <div class="mc"><div class="mc-l">Link taps</div><div class="mc-v">1,840</div><div class="mc-d up">Up 34% vs last month</div></div>
+      <div class="mc"><div class="mc-l">Paid ROAS</div><div class="mc-v">3.2x</div><div class="mc-d dn">Down 0.4x vs last month</div></div>
     </div>
-    <div class="pipe-strip green mb">
+    <div class="pipe-row green">
       <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:#15803D">Instagram pipeline this month</div>
-      <div style="font-size:11px;color:#166534;flex:1;letter-spacing:.2px">1,840 link taps <span style="color:var(--mauve);margin:0 5px">→</span> 620 sessions <span style="color:var(--mauve);margin:0 5px">→</span> 49 leads <span style="color:var(--mauve);margin:0 5px">→</span> 6 demos <span style="color:var(--mauve);margin:0 5px">→</span> <strong>£22K pipeline</strong></div>
-      <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM → GA4 → HubSpot</span>
+      <div style="font-size:11px;color:#166534;flex:1">1,840 link taps &#8594; 620 sessions &#8594; 49 leads &#8594; 6 demos &#8594; <strong>&#163;22K pipeline</strong></div>
+      <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM &#8594; GA4 &#8594; HubSpot</span>
     </div>
-    <div class="ch-tabs">
-      <button class="ch-tab active" onclick="chtab(this)">Organic</button>
-      <button class="ch-tab" onclick="chtab(this)">Paid (Meta Ads)</button>
-      <button class="ch-tab" onclick="chtab(this)">Stories</button>
-      <button class="ch-tab" onclick="chtab(this)">Reels</button>
-    </div>
-    <div class="g2 mb">
-      <div class="card"><div class="card-h"><div><div class="card-t">Format — link taps (last 30 days)</div><div class="card-s">Reels dominate bio link traffic</div></div><span class="pill pe">1,840 total</span></div>
+    <div class="ch-tabs"><button class="ch-tab active" onclick="chtab(this)">Organic</button><button class="ch-tab" onclick="chtab(this)">Paid (Meta Ads)</button><button class="ch-tab" onclick="chtab(this)">Stories</button><button class="ch-tab" onclick="chtab(this)">Reels</button></div>
+    <div class="g2">
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div><div class="card-t">Format — link taps (last 30 days)</div><div class="card-s">Reels dominate bio link traffic</div></div><span class="pill pe">1,840 total</span></div>
         <div class="bars">
           <div class="br"><span class="bl">Reels</span><div class="bt"><div class="bf" style="width:82%;background:#D4537E"></div></div><span class="bv">1,510</span></div>
           <div class="br"><span class="bl">Stories</span><div class="bt"><div class="bf" style="width:18%;background:#ED93B1"></div></div><span class="bv">330</span></div>
@@ -548,35 +464,36 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
           <div class="br"><span class="bl">Static</span><div class="bt"><div class="bf" style="width:4%;background:#FBEAF0"></div></div><span class="bv">80</span></div>
         </div>
       </div>
-      <div class="card"><div class="card-h"><div class="card-t">Engagement rate trend</div></div><div class="cw" style="height:155px"><canvas id="ch-ig"></canvas></div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Engagement rate trend</div></div><div class="cw" style="height:148px"><canvas id="ch-ig"></canvas></div></div>
     </div>
+    <div style="height:10px"></div>
     <div class="card">
       <div class="card-h"><div class="card-t">Top posts this month</div><span class="pill pe">24 total posts</span></div>
-      <table class="tbl"><thead><tr><th>Post</th><th>Type</th><th>Reach</th><th>Eng. rate</th><th>Link taps</th><th>Saves</th><th>AI score</th></tr></thead>
+      <table class="tbl"><thead><tr><th>Post</th><th>Type</th><th>Reach</th><th>Eng. rate</th><th>Link taps</th><th>Saves</th><th>Score</th></tr></thead>
       <tbody>
         <tr><td><span class="td-n">Client result reveal</span></td><td><span class="pill pa">Reel</span></td><td class="td-m">12,400</td><td class="up">7.2%</td><td>480</td><td>1,240</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:94%;background:#22C55E"></div></div><span class="sbn" style="color:#15803D">94</span></div></td></tr>
         <tr><td><span class="td-n">5 AI myths</span></td><td><span class="pill pa">Reel</span></td><td class="td-m">9,800</td><td class="up">6.1%</td><td>310</td><td>870</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:87%;background:#22C55E"></div></div><span class="sbn" style="color:#15803D">87</span></div></td></tr>
-        <tr><td><span class="td-n">Client onboard BTS</span></td><td><span class="pill pb">Carousel</span></td><td class="td-m">7,200</td><td>4.8%</td><td>190</td><td>440</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:72%;background:var(--ai)"></div></div><span class="sbn" style="color:var(--ai)">72</span></div></td></tr>
+        <tr><td><span class="td-n">Client onboard BTS</span></td><td><span class="pill pb">Carousel</span></td><td class="td-m">7,200</td><td>4.8%</td><td>190</td><td>440</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:72%;background:#6366F1"></div></div><span class="sbn" style="color:#6366F1">72</span></div></td></tr>
       </tbody></table>
     </div>
   </div>
 
   <!-- LINKEDIN -->
   <div class="screen" id="sc-linkedin">
-    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Articles drive 4.2× more profile visits</strong> than standard posts. Follower growth +420 this month — 50% above B2B agency benchmark. Post thought leadership Mon/Wed before 9am for max reach.</div></div>
-    <div class="g4 mb">
-      <div class="mc"><div class="mc-l">Impressions</div><div class="mc-v">31.4K</div><div class="mc-d up">↑ 9% this month</div></div>
-      <div class="mc"><div class="mc-l">Engagement rate</div><div class="mc-v">3.1%</div><div class="mc-d nt">→ at industry avg</div></div>
-      <div class="mc"><div class="mc-l">Profile visits</div><div class="mc-v">2,840</div><div class="mc-d up">↑ 22% this month</div></div>
-      <div class="mc"><div class="mc-l">Follower growth</div><div class="mc-v">+420</div><div class="mc-d up">↑ above benchmark</div></div>
+    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Articles drive 4.2x more profile visits</strong> than standard posts. Follower growth +420 this month — 50% above benchmark.</div></div>
+    <div class="g4">
+      <div class="mc"><div class="mc-l">Impressions</div><div class="mc-v">31.4K</div><div class="mc-d up">Up 9% this month</div></div>
+      <div class="mc"><div class="mc-l">Engagement rate</div><div class="mc-v">3.1%</div><div class="mc-d nt">At industry avg</div></div>
+      <div class="mc"><div class="mc-l">Profile visits</div><div class="mc-v">2,840</div><div class="mc-d up">Up 22% this month</div></div>
+      <div class="mc"><div class="mc-l">Follower growth</div><div class="mc-v">+420</div><div class="mc-d up">Above benchmark</div></div>
     </div>
-    <div class="pipe-strip blue mb">
+    <div class="pipe-row blue">
       <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:#2563EB">LinkedIn pipeline this month</div>
-      <div style="font-size:11px;color:#1D4ED8;flex:1;letter-spacing:.2px">2,840 profile visits <span style="color:var(--mauve);margin:0 5px">→</span> 480 sessions <span style="color:var(--mauve);margin:0 5px">→</span> 27 leads <span style="color:var(--mauve);margin:0 5px">→</span> 4 demos <span style="color:var(--mauve);margin:0 5px">→</span> <strong>£12.3K pipeline</strong></div>
-      <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM → GA4 → HubSpot</span>
+      <div style="font-size:11px;color:#1D4ED8;flex:1">2,840 profile visits &#8594; 480 sessions &#8594; 27 leads &#8594; 4 demos &#8594; <strong>&#163;12.3K pipeline</strong></div>
+      <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM &#8594; GA4 &#8594; HubSpot</span>
     </div>
     <div class="g2e">
-      <div class="card"><div class="card-h"><div class="card-t">Post type — profile visits</div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Post type — profile visits</div></div>
         <div class="bars" style="margin-top:6px">
           <div class="br"><span class="bl">Articles</span><div class="bt"><div class="bf" style="width:80%;background:#3B82F6"></div></div><span class="bv">1,480</span></div>
           <div class="br"><span class="bl">Documents</span><div class="bt"><div class="bf" style="width:55%;background:#85B7EB"></div></div><span class="bv">820</span></div>
@@ -584,45 +501,45 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
           <div class="br"><span class="bl">Videos</span><div class="bt"><div class="bf" style="width:14%;background:#EFF6FF"></div></div><span class="bv">200</span></div>
         </div>
       </div>
-      <div class="card"><div class="card-h"><div class="card-t">Impressions trend (12 weeks)</div></div><div class="cw" style="height:155px"><canvas id="ch-li"></canvas></div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Impressions trend (12 weeks)</div></div><div class="cw" style="height:148px"><canvas id="ch-li"></canvas></div></div>
     </div>
   </div>
 
   <!-- TIKTOK -->
   <div class="screen" id="sc-tiktok">
-    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Videos under 30s have 2.8× higher completion rate.</strong> Hook strength scores avg 68% (industry 42%). TikTok is your fastest-growing channel (+8.4% followers). Post 6–9pm for best reach.</div></div>
-    <div class="g4 mb">
-      <div class="mc"><div class="mc-l">Total views</div><div class="mc-v">82.1K</div><div class="mc-d up">↑ 31% this month</div></div>
-      <div class="mc"><div class="mc-l">Completion rate</div><div class="mc-v">54%</div><div class="mc-d up">↑ 12pp above avg</div></div>
-      <div class="mc"><div class="mc-l">Follower growth</div><div class="mc-v">+1,240</div><div class="mc-d up">↑ 8.4% this month</div></div>
-      <div class="mc"><div class="mc-l">Profile clicks</div><div class="mc-v">3,420</div><div class="mc-d up">↑ 44% this month</div></div>
+    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Videos under 30s have 2.8x higher completion rate.</strong> TikTok is your fastest-growing channel (+8.4% followers). Post 6-9pm for best reach.</div></div>
+    <div class="g4">
+      <div class="mc"><div class="mc-l">Total views</div><div class="mc-v">82.1K</div><div class="mc-d up">Up 31% this month</div></div>
+      <div class="mc"><div class="mc-l">Completion rate</div><div class="mc-v">54%</div><div class="mc-d up">12pp above avg</div></div>
+      <div class="mc"><div class="mc-l">Follower growth</div><div class="mc-v">+1,240</div><div class="mc-d up">Up 8.4% this month</div></div>
+      <div class="mc"><div class="mc-l">Profile clicks</div><div class="mc-v">3,420</div><div class="mc-d up">Up 44% this month</div></div>
     </div>
-    <div class="pipe-strip neutral mb">
+    <div class="pipe-row neutral">
       <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--soil)">TikTok pipeline this month</div>
-      <div style="font-size:11px;color:var(--text2);flex:1;letter-spacing:.2px">3,420 profile clicks <span style="color:var(--mauve);margin:0 5px">→</span> 140 sessions <span style="color:var(--mauve);margin:0 5px">→</span> 8 leads <span style="color:var(--mauve);margin:0 5px">→</span> 1 demo <span style="color:var(--mauve);margin:0 5px">→</span> <strong style="color:var(--soil)">£4.1K pipeline</strong></div>
-      <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM → GA4 → HubSpot</span>
+      <div style="font-size:11px;color:var(--earth);flex:1">3,420 profile clicks &#8594; 140 sessions &#8594; 8 leads &#8594; 1 demo &#8594; <strong>&#163;4.1K pipeline</strong></div>
+      <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM &#8594; GA4 &#8594; HubSpot</span>
     </div>
     <div class="g3">
-      <div class="card"><div class="card-h"><div class="card-t">Length vs completion</div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Length vs completion</div></div>
         <div class="bars" style="margin-top:4px">
           <div class="br"><span class="bl">Under 15s</span><div class="bt"><div class="bf" style="width:88%;background:var(--soil)"></div></div><span class="bv">88%</span></div>
-          <div class="br"><span class="bl">15–30s</span><div class="bt"><div class="bf" style="width:72%;background:var(--earth)"></div></div><span class="bv">72%</span></div>
-          <div class="br"><span class="bl">30–60s</span><div class="bt"><div class="bf" style="width:48%;background:var(--dusty)"></div></div><span class="bv">48%</span></div>
+          <div class="br"><span class="bl">15-30s</span><div class="bt"><div class="bf" style="width:72%;background:var(--earth)"></div></div><span class="bv">72%</span></div>
+          <div class="br"><span class="bl">30-60s</span><div class="bt"><div class="bf" style="width:48%;background:var(--dusty)"></div></div><span class="bv">48%</span></div>
           <div class="br"><span class="bl">60s+</span><div class="bt"><div class="bf" style="width:24%;background:var(--blush)"></div></div><span class="bv">24%</span></div>
         </div>
       </div>
-      <div class="card"><div class="card-h"><div class="card-t">Engagement breakdown</div></div><div class="cw" style="height:130px"><canvas id="ch-tt"></canvas></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Engagement breakdown</div></div><div class="cw" style="height:120px"><canvas id="ch-tt"></canvas></div>
         <div style="display:flex;flex-direction:column;gap:4px;margin-top:7px">
-          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);letter-spacing:.2px"><span class="dot" style="background:var(--soil)"></span>Shares<span style="margin-left:auto;font-family:'DM Mono',monospace">38%</span></div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);letter-spacing:.2px"><span class="dot" style="background:var(--earth)"></span>Likes<span style="margin-left:auto;font-family:'DM Mono',monospace">34%</span></div>
-          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);letter-spacing:.2px"><span class="dot" style="background:var(--blush)"></span>Comments<span style="margin-left:auto;font-family:'DM Mono',monospace">28%</span></div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--earth)"><span class="dot" style="background:var(--soil)"></span>Shares<span style="margin-left:auto;font-family:'DM Mono',monospace">38%</span></div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--earth)"><span class="dot" style="background:var(--earth)"></span>Likes<span style="margin-left:auto;font-family:'DM Mono',monospace">34%</span></div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--earth)"><span class="dot" style="background:var(--blush)"></span>Comments<span style="margin-left:auto;font-family:'DM Mono',monospace">28%</span></div>
         </div>
       </div>
-      <div class="card"><div class="card-h"><div class="card-t">Best posting hours</div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Best posting hours</div></div>
         <div class="bars" style="margin-top:4px">
-          <div class="br"><span class="bl">6–9pm</span><div class="bt"><div class="bf" style="width:90%;background:#22C55E"></div></div><span class="bv" style="color:#15803D">Top</span></div>
-          <div class="br"><span class="bl">12–2pm</span><div class="bt"><div class="bf" style="width:65%;background:var(--dusty)"></div></div><span class="bv">Good</span></div>
-          <div class="br"><span class="bl">7–9am</span><div class="bt"><div class="bf" style="width:48%;background:var(--blush)"></div></div><span class="bv">Mid</span></div>
+          <div class="br"><span class="bl">6-9pm</span><div class="bt"><div class="bf" style="width:90%;background:#22C55E"></div></div><span class="bv" style="color:#15803D">Top</span></div>
+          <div class="br"><span class="bl">12-2pm</span><div class="bt"><div class="bf" style="width:65%;background:var(--dusty)"></div></div><span class="bv">Good</span></div>
+          <div class="br"><span class="bl">7-9am</span><div class="bt"><div class="bf" style="width:48%;background:var(--blush)"></div></div><span class="bv">Mid</span></div>
           <div class="br"><span class="bl">Other</span><div class="bt"><div class="bf" style="width:22%;background:var(--offb)"></div></div><span class="bv">Low</span></div>
         </div>
       </div>
@@ -632,69 +549,65 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
   <!-- YOUTUBE -->
   <div class="screen" id="sc-youtube">
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;text-align:center;gap:14px">
-      <div style="width:48px;height:48px;background:var(--offb);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px">▶</div>
-      <div style="font-size:14px;font-weight:400;letter-spacing:1px;color:var(--soil)">Connect YouTube</div>
-      <div style="font-size:12px;color:var(--mauve);max-width:360px;line-height:1.7;letter-spacing:.3px">Link your YouTube channel to track video performance, Shorts analytics, watch time, and subscriber growth.</div>
-      <button class="btn prim" style="margin-top:8px" onclick="go(document.querySelector('.nav-item:last-of-type'),'connections')">+ Connect YouTube</button>
+      <div style="width:48px;height:48px;background:var(--offb);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px">&#9654;</div>
+      <div style="font-size:13px;font-weight:400;letter-spacing:1px;color:var(--soil)">Connect YouTube</div>
+      <div style="font-size:12px;color:var(--mauve);max-width:360px;line-height:1.7">Link your YouTube channel to track video performance, Shorts analytics, watch time, and subscriber growth.</div>
+      <button class="btn prim" style="margin-top:8px" onclick="go(null,'connections')">+ Connect YouTube</button>
     </div>
   </div>
 
   <!-- REPORTS -->
   <div class="screen" id="sc-reports">
-    <div class="card mb">
-      <div class="card-h"><div><div class="card-t">Generate a report</div><div class="card-s">AI writes a full performance summary — what worked, what didn't, what to do next</div></div><span class="pill pa">AI generated</span></div>
+    <div class="card">
+      <div class="card-h"><div><div class="card-t">Generate a report</div><div class="card-s">AI writes a full performance summary</div></div><span class="pill pa">AI generated</span></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end">
-        <div class="ffield"><span class="flbl">Period</span><select class="fsel" id="rep-period"><option>Last 7 days</option><option selected>Last 30 days</option><option>Last 90 days</option></select></div>
-        <div class="ffield"><span class="flbl">Channels</span><select class="fsel"><option>All connected channels</option><option>Instagram only</option><option>LinkedIn only</option></select></div>
-        <div class="ffield"><span class="flbl">Include</span><select class="fsel"><option>Full report</option><option>Summary only</option></select></div>
+        <div class="ffield" style="margin-bottom:0"><span class="flbl">Period</span><select class="fsel"><option>Last 7 days</option><option selected>Last 30 days</option><option>Last 90 days</option></select></div>
+        <div class="ffield" style="margin-bottom:0"><span class="flbl">Channels</span><select class="fsel"><option>All channels</option><option>Instagram only</option><option>LinkedIn only</option></select></div>
+        <div class="ffield" style="margin-bottom:0"><span class="flbl">Include</span><select class="fsel"><option>Full report</option><option>Summary only</option></select></div>
         <button class="btn prim" style="height:34px">Generate</button>
       </div>
     </div>
-    <div class="card mb">
-      <div class="card-h"><div><div class="card-t">Monthly performance report — March 2026</div><div class="card-s">All channels · AI generated · 26 Mar 2026</div></div><div style="display:flex;gap:5px"><button class="btn">Schedule ↓</button><button class="btn prim">Send to email</button></div></div>
-      <div class="ai-ban" style="margin-bottom:14px"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>March summary:</strong> Strongest month yet. Reels drove 82% of link taps. TikTok follower growth (+1,240) outpaced all channels. LinkedIn held steady. Main gap: TikTok posting frequency is half your top competitor's. <strong>Overall: strong. No major risks.</strong></div></div>
-      <div class="g2e mb">
-        <div class="rep-ok"><div class="rep-sec" style="color:#15803D">✓ What worked</div>
-          <div class="rep-item" style="color:#166534"><strong>"Outcome reveal" Reels</strong> — avg 7.2% eng rate, 3.4× more link taps. Top 3 posts all used this structure.</div>
-          <div class="rep-item" style="color:#166534"><strong>Tuesday 9–11am posting</strong> — 38% higher reach than other windows.</div>
-          <div class="rep-item" style="color:#166534"><strong>LinkedIn articles</strong> — drove 4.2× more profile visits. 2 articles generated 420 new followers.</div>
-          <div class="rep-item" style="color:#166534"><strong>TikTok under-30s videos</strong> — 88% completion vs 48% for 60s+ content.</div>
+    <div class="card">
+      <div class="card-h"><div><div class="card-t">Monthly report — March 2026</div><div class="card-s">All channels · AI generated · 26 Mar 2026</div></div><div style="display:flex;gap:5px"><button class="btn">Schedule</button><button class="btn prim">Send email</button></div></div>
+      <div class="ai-ban" style="margin-bottom:14px"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>March summary:</strong> Strongest month yet. Reels drove 82% of link taps. TikTok follower growth (+1,240) outpaced all channels. Main gap: TikTok posting frequency is half your top competitor's.</div></div>
+      <div class="g2e">
+        <div class="rep-ok"><div class="rep-sec" style="color:#15803D">What worked</div>
+          <div class="rep-item" style="color:#166534"><strong>"Outcome reveal" Reels</strong> — avg 7.2% eng rate, 3.4x more link taps.</div>
+          <div class="rep-item" style="color:#166534"><strong>Tuesday 9-11am posting</strong> — 38% higher reach than other windows.</div>
+          <div class="rep-item" style="color:#166534"><strong>LinkedIn articles</strong> — drove 4.2x more profile visits.</div>
         </div>
-        <div class="rep-no"><div class="rep-sec" style="color:#DC2626">✗ What didn't work</div>
-          <div class="rep-item" style="color:#991B1B"><strong>Static images</strong> — avg 38 AI score, 45 link taps vs 330 for Reels.</div>
-          <div class="rep-item" style="color:#991B1B"><strong>Opinion-first hooks</strong> — underperformed outcome-first hooks by 2.1×.</div>
-          <div class="rep-item" style="color:#991B1B"><strong>Weekend posting</strong> — 31% lower engagement Sat/Sun. Wasted 4 posts this month.</div>
-          <div class="rep-item" style="color:#991B1B"><strong>Meta Ads ROAS dip</strong> — dropped from 3.6× to 3.2×. Creative refresh needed.</div>
+        <div class="rep-no"><div class="rep-sec" style="color:#DC2626">What didn't work</div>
+          <div class="rep-item" style="color:#991B1B"><strong>Static images</strong> — avg 45 link taps vs 330 for Reels.</div>
+          <div class="rep-item" style="color:#991B1B"><strong>Weekend posting</strong> — 31% lower engagement Sat/Sun.</div>
+          <div class="rep-item" style="color:#991B1B"><strong>Meta Ads ROAS dip</strong> — dropped from 3.6x to 3.2x.</div>
         </div>
       </div>
       <div class="sec-ttl">AI recommendations for April</div>
-      <div class="flag fai"><span>✦</span><div>Post Reels 4×/week on TikTok — currently 2×/week. Completion rates are strong; volume is the only limiter.</div></div>
-      <div class="flag fai"><span>✦</span><div>Refresh Meta Ads creative — ROAS has dipped 3 weeks running. Test 2–3 new video hooks in week 1.</div></div>
-      <div class="flag fai"><span>✦</span><div>Stop posting on weekends — 31% lower engagement consistently. Redirect effort to Mon/Tue content.</div></div>
+      <div class="flag fai"><span>+</span><div>Post Reels 4x/week on TikTok — currently 2x/week. Completion rates are strong; volume is the only limiter.</div></div>
+      <div class="flag fai"><span>+</span><div>Refresh Meta Ads creative — ROAS has dipped 3 weeks running.</div></div>
     </div>
     <div class="sec-ttl">Scheduled reports</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">
-      <div class="sched-c"><div class="sched-h"><div><div style="font-size:12px;font-weight:400;letter-spacing:.5px;color:var(--soil)">Monthly performance report</div><div style="font-size:10px;color:var(--mauve);margin-top:2px;letter-spacing:.2px">All channels · Full · 1st of each month</div></div><span class="pill pg">Active</span></div><div style="font-size:10.5px;color:var(--text2);line-height:1.65;margin-bottom:8px;letter-spacing:.2px">Sends to: <strong>team@b3studio.co.uk</strong><br>Next send: 1 Apr 2026 · 9:00am</div><div style="display:flex;gap:5px"><button class="btn" style="font-size:10px">Edit</button><button class="btn prim" style="font-size:10px">Send preview</button></div></div>
-      <div class="sched-c"><div class="sched-h"><div><div style="font-size:12px;font-weight:400;letter-spacing:.5px;color:var(--soil)">Weekly digest</div><div style="font-size:10px;color:var(--mauve);margin-top:2px;letter-spacing:.2px">All channels · Summary · Every Monday</div></div><span class="pill pam">Paused</span></div><div style="font-size:10.5px;color:var(--text2);line-height:1.65;margin-bottom:8px;letter-spacing:.2px">Sends to: <strong>lingo@ascentive.co.uk</strong><br>Last sent: 17 Mar 2026</div><div style="display:flex;gap:5px"><button class="btn" style="font-size:10px">Edit</button><button class="btn prim" style="font-size:10px">Resume</button></div></div>
-      <div style="border:1px dashed var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:110px;cursor:pointer" onclick="alert('Set frequency, channels, and email — full modal in live build.')"><div style="font-size:22px;color:var(--dusty);margin-bottom:6px">+</div><div style="font-size:12px;font-weight:400;letter-spacing:.5px;color:var(--dusty)">Schedule a report</div></div>
+      <div class="sched-c"><div class="sched-h"><div><div style="font-size:12px;font-weight:400;letter-spacing:.5px;color:var(--soil)">Monthly performance report</div><div style="font-size:10px;color:var(--mauve);margin-top:2px">All channels · Full · 1st of month</div></div><span class="pill pg">Active</span></div><div style="font-size:10.5px;color:var(--earth);line-height:1.65;margin-bottom:8px">Sends to: <strong>team@b3studio.co.uk</strong><br>Next: 1 Apr 2026 · 9:00am</div><div style="display:flex;gap:5px"><button class="btn" style="font-size:10px">Edit</button><button class="btn prim" style="font-size:10px">Send preview</button></div></div>
+      <div class="sched-c"><div class="sched-h"><div><div style="font-size:12px;font-weight:400;letter-spacing:.5px;color:var(--soil)">Weekly digest</div><div style="font-size:10px;color:var(--mauve);margin-top:2px">All channels · Summary · Mondays</div></div><span class="pill pam">Paused</span></div><div style="font-size:10.5px;color:var(--earth);line-height:1.65;margin-bottom:8px">Sends to: <strong>lingo@ascentive.co.uk</strong><br>Last sent: 17 Mar 2026</div><div style="display:flex;gap:5px"><button class="btn" style="font-size:10px">Edit</button><button class="btn prim" style="font-size:10px">Resume</button></div></div>
     </div>
   </div>
 
   <!-- DASHBOARD BUILDER -->
   <div class="screen" id="sc-dashbuilder">
-    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Build any dashboard.</strong> Click fields from your connected platforms to add them to the chart. Set X/Y axes, choose chart type, add a secondary axis for multi-metric views — e.g. pipeline value + ad spend on the same chart.</div></div>
-    <div class="g2e mb">
-      <div class="card" style="max-height:500px;overflow-y:auto">
-        <div class="card-h"><div class="card-t">Available fields</div><div class="card-s">Click to add to chart</div></div>
+    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt"><strong>Build any dashboard.</strong> Click fields to add them to the chart. Set axes, choose chart type, add a secondary axis — e.g. pipeline value + ad spend on the same chart.</div></div>
+    <div class="g2e">
+      <div class="card" style="max-height:480px;overflow-y:auto;margin-bottom:0">
+        <div class="card-h"><div class="card-t">Available fields</div><div class="card-s">Click to add</div></div>
         <div id="field-palette"></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px">
-        <div class="card">
+        <div class="card" style="margin-bottom:0">
           <div class="card-h"><div class="card-t">Chart configuration</div></div>
           <div style="display:flex;flex-direction:column;gap:8px">
-            <div class="ffield"><span class="flbl">Chart name</span><input class="finp" id="db-name" value="Revenue vs Ad Spend"></div>
-            <div class="ffield"><span class="flbl">Chart type</span>
-              <div style="display:flex;gap:5px;flex-wrap:wrap" id="ct-btns">
+            <div class="ffield" style="margin-bottom:0"><span class="flbl">Chart name</span><input class="finp" id="db-name" value="Revenue vs Ad Spend"></div>
+            <div class="ffield" style="margin-bottom:0"><span class="flbl">Chart type</span>
+              <div style="display:flex;gap:5px" id="ct-btns">
                 <button class="btn" onclick="setType(this,'bar')">Bar</button>
                 <button class="btn prim" onclick="setType(this,'line')">Line</button>
                 <button class="btn" onclick="setType(this,'area')">Area</button>
@@ -702,443 +615,288 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
               </div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-              <div class="ffield"><span class="flbl">Time period</span><select class="fsel" id="db-period" onchange="rebuildDB()"><option>Last 7 days</option><option selected>Last 30 days</option><option>Last 90 days</option><option>Last 12 months</option></select></div>
-              <div class="ffield"><span class="flbl">Granularity</span><select class="fsel" id="db-gran" onchange="rebuildDB()"><option>Daily</option><option selected>Weekly</option><option>Monthly</option></select></div>
+              <div class="ffield" style="margin-bottom:0"><span class="flbl">Period</span><select class="fsel" id="db-period" onchange="rebuildDB()"><option>Last 7 days</option><option selected>Last 30 days</option><option>Last 90 days</option></select></div>
+              <div class="ffield" style="margin-bottom:0"><span class="flbl">Granularity</span><select class="fsel" id="db-gran" onchange="rebuildDB()"><option>Daily</option><option selected>Weekly</option><option>Monthly</option></select></div>
             </div>
-            <div class="ffield"><span class="flbl">Primary Y axis (left)</span><select class="fsel" id="db-y1" onchange="rebuildDB()"><option value="revenue">Revenue (£)</option><option value="ig_taps">Link taps</option><option value="pipeline">Pipeline value (£)</option><option value="leads">Leads from social</option><option value="sessions">Web sessions</option><option value="demos">Demo bookings</option></select></div>
-            <div class="ffield"><span class="flbl">Secondary Y axis (right)</span><select class="fsel" id="db-y2" onchange="rebuildDB()"><option value="none">None</option><option value="adspend" selected>Ad spend (£)</option><option value="ig_eng">Engagement rate (%)</option><option value="roas">ROAS</option><option value="conv_rate">Conversion rate (%)</option><option value="leads">Leads from social</option></select></div>
-            <button class="btn" style="width:100%;justify-content:center;gap:5px;letter-spacing:1px" onclick="aiRec()">✦ Ask AI to recommend chart type</button>
+            <div class="ffield" style="margin-bottom:0"><span class="flbl">Primary Y axis (left)</span><select class="fsel" id="db-y1" onchange="rebuildDB()"><option value="revenue">Revenue (GBP)</option><option value="ig_taps">Link taps</option><option value="pipeline">Pipeline value (GBP)</option><option value="leads">Leads from social</option><option value="sessions">Web sessions</option></select></div>
+            <div class="ffield" style="margin-bottom:0"><span class="flbl">Secondary Y axis (right)</span><select class="fsel" id="db-y2" onchange="rebuildDB()"><option value="none">None</option><option value="adspend" selected>Ad spend (GBP)</option><option value="ig_eng">Engagement rate</option><option value="roas">ROAS</option><option value="leads">Leads from social</option></select></div>
           </div>
         </div>
-        <div class="card"><div class="card-h"><div class="card-t">Active fields</div><div class="card-s">Click axis label to toggle left/right</div></div><div id="active-flds" style="min-height:36px"></div></div>
+        <div class="card" style="margin-bottom:0"><div class="card-h"><div class="card-t">Active fields</div></div><div id="active-flds" style="min-height:36px"></div></div>
       </div>
     </div>
-    <div class="card mb">
-      <div class="card-h"><div><div class="card-t" id="db-preview-t">Revenue vs Ad Spend</div><div class="card-s">Dual-axis · last 30 days · weekly</div></div><div style="display:flex;gap:5px"><button class="btn" onclick="rebuildDB()">↻ Refresh</button><button class="btn prim" onclick="alert('Saved to dashboards!')">Save dashboard</button></div></div>
-      <div class="cw" style="height:230px"><canvas id="db-chart"></canvas></div>
+    <div style="height:10px"></div>
+    <div class="card">
+      <div class="card-h"><div><div class="card-t" id="db-preview-t">Revenue vs Ad Spend</div><div class="card-s">Dual-axis · last 30 days · weekly</div></div><div style="display:flex;gap:5px"><button class="btn" onclick="rebuildDB()">Refresh</button><button class="btn prim">Save dashboard</button></div></div>
+      <div class="cw" style="height:220px"><canvas id="db-chart"></canvas></div>
     </div>
   </div>
 
   <!-- CONNECTIONS -->
   <div class="screen" id="sc-connections">
-    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt">Connect your social platforms once — Pulse pulls all data automatically. No manual uploads, no dataset configuration needed.</div></div>
+    <div class="ai-ban"><div class="ai-bi"><svg viewBox="0 0 16 16" fill="white" width="9" height="9"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg></div><div class="ai-bt">Connect your social platforms once — Pulse pulls all data automatically.</div></div>
     <div class="sec-ttl" style="margin-bottom:10px">Organic channels <span class="pill pg" style="margin-left:8px">3 connected</span></div>
-    <div class="plat-grid mb">
-      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#FBEAF0;color:#993556">IG</div><span class="plat-dot dot-on"></span></div><div class="plat-n">Instagram</div><div class="plat-d">Posts, Reels, Stories, carousels</div><button class="plat-btn conn">✓ Connected</button></div>
-      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#EFF6FF;color:#2563EB">Li</div><span class="plat-dot dot-on"></span></div><div class="plat-n">LinkedIn</div><div class="plat-d">Posts, articles, follower analytics</div><button class="plat-btn conn">✓ Connected</button></div>
-      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:var(--offb);color:var(--earth)">Tk</div><span class="plat-dot dot-on"></span></div><div class="plat-n">TikTok</div><div class="plat-d">Videos, completion, follower growth</div><button class="plat-btn conn">✓ Connected</button></div>
+    <div class="plat-grid" style="margin-bottom:10px">
+      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#FBEAF0;color:#993556">IG</div><span class="plat-dot dot-on"></span></div><div class="plat-n">Instagram</div><div class="plat-d">Posts, Reels, Stories, carousels</div><button class="plat-btn conn">Connected</button></div>
+      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#EFF6FF;color:#2563EB">Li</div><span class="plat-dot dot-on"></span></div><div class="plat-n">LinkedIn</div><div class="plat-d">Posts, articles, follower analytics</div><button class="plat-btn conn">Connected</button></div>
+      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:var(--offb);color:var(--earth)">Tk</div><span class="plat-dot dot-on"></span></div><div class="plat-n">TikTok</div><div class="plat-d">Videos, completion, follower growth</div><button class="plat-btn conn">Connected</button></div>
       <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:#FEF2F2;color:#DC2626">YT</div><span class="plat-dot dot-off"></span></div><div class="plat-n">YouTube</div><div class="plat-d">Videos, Shorts, channel analytics</div><button class="plat-btn">+ Connect</button></div>
       <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:#EFF6FF;color:#1A6FA8">Fb</div><span class="plat-dot dot-off"></span></div><div class="plat-n">Facebook</div><div class="plat-d">Page posts, audience insights</div><button class="plat-btn">+ Connect</button></div>
     </div>
     <div class="sec-ttl" style="margin-bottom:10px">Paid advertising <span class="pill pam" style="margin-left:8px">1 connected</span></div>
-    <div class="plat-grid mb">
-      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#FBEAF0;color:#993556">MA</div><span class="plat-dot dot-on"></span></div><div class="plat-n">Meta Ads</div><div class="plat-d">Facebook + Instagram paid campaigns</div><button class="plat-btn conn">✓ Connected</button></div>
+    <div class="plat-grid" style="margin-bottom:10px">
+      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#FBEAF0;color:#993556">MA</div><span class="plat-dot dot-on"></span></div><div class="plat-n">Meta Ads</div><div class="plat-d">Facebook + Instagram paid</div><button class="plat-btn conn">Connected</button></div>
       <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:var(--offb);color:var(--earth)">TA</div><span class="plat-dot dot-off"></span></div><div class="plat-n">TikTok Ads</div><div class="plat-d">Advertising campaigns and spend</div><button class="plat-btn">+ Connect</button></div>
       <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:#EFF6FF;color:#2563EB">LA</div><span class="plat-dot dot-off"></span></div><div class="plat-n">LinkedIn Ads</div><div class="plat-d">Sponsored content, lead gen ads</div><button class="plat-btn">+ Connect</button></div>
     </div>
-    <div class="sec-ttl" style="margin-bottom:5px">Pipeline &amp; analytics <span style="font-size:9px;font-weight:300;color:var(--mauve);text-transform:none;letter-spacing:0"> — feeds the attribution layer across all social screens</span></div>
-    <div style="font-size:10px;color:var(--mauve);margin-bottom:10px;letter-spacing:.3px">These are not navigation tabs — they feed data into your social dashboards and custom dashboard builder automatically.</div>
+    <div class="sec-ttl" style="margin-bottom:6px">Pipeline &amp; analytics <span style="font-size:9px;font-weight:300;color:var(--mauve);text-transform:none;letter-spacing:0">— feeds attribution layer across social screens</span></div>
+    <div style="font-size:10px;color:var(--mauve);margin-bottom:10px">These are not nav tabs — they feed data into social dashboards and the dashboard builder automatically.</div>
     <div class="plat-grid">
-      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#F0FDF4;color:#15803D">HS</div><span class="plat-dot dot-on"></span></div><div class="plat-n">HubSpot CRM</div><div class="plat-d">Deals, contacts, pipeline — closes the social → revenue loop</div><button class="plat-btn conn">✓ Connected</button></div>
-      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#FEF2F2;color:#DC2626">G4</div><span class="plat-dot dot-on"></span></div><div class="plat-n">Google Analytics 4</div><div class="plat-d">Web sessions, UTM attribution, goal conversions</div><button class="plat-btn conn">✓ Connected</button></div>
-      <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:var(--offb);color:var(--earth)">PD</div><span class="plat-dot dot-off"></span></div><div class="plat-n">Pipedrive</div><div class="plat-d">Alternative CRM — deals and pipeline attribution</div><button class="plat-btn">+ Connect</button></div>
-      <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:var(--ai-bg);color:#4338CA">SF</div><span class="plat-dot dot-off"></span></div><div class="plat-n">Salesforce</div><div class="plat-d">Enterprise CRM pipeline attribution</div><button class="plat-btn">+ Connect</button></div>
+      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#F0FDF4;color:#15803D">HS</div><span class="plat-dot dot-on"></span></div><div class="plat-n">HubSpot CRM</div><div class="plat-d">Deals, contacts, pipeline attribution</div><button class="plat-btn conn">Connected</button></div>
+      <div class="plat-c conn"><div class="plat-top"><div class="plat-ico" style="background:#FEF2F2;color:#DC2626">G4</div><span class="plat-dot dot-on"></span></div><div class="plat-n">Google Analytics 4</div><div class="plat-d">Sessions, UTM attribution, goals</div><button class="plat-btn conn">Connected</button></div>
+      <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:var(--offb);color:var(--earth)">PD</div><span class="plat-dot dot-off"></span></div><div class="plat-n">Pipedrive</div><div class="plat-d">Alternative CRM pipeline attribution</div><button class="plat-btn">+ Connect</button></div>
+      <div class="plat-c"><div class="plat-top"><div class="plat-ico" style="background:#EEF2FF;color:#4338CA">SF</div><span class="plat-dot dot-off"></span></div><div class="plat-n">Salesforce</div><div class="plat-d">Enterprise CRM pipeline attribution</div><button class="plat-btn">+ Connect</button></div>
     </div>
   </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
-</div><!-- /shell -->
+  </div>
+</div>
+</div>
 
-<!-- PLANNER MODAL -->
+<!-- POST MODAL -->
 <div class="modal-bg" id="modal-bg">
-  <div class="modal" style="width:520px">
-    <div class="modal-h"><span class="modal-t" id="modal-title">Plan post</span><button class="modal-x" onclick="closeModal()">×</button></div>
-
-    <!-- Intelligence panel — populated by JS -->
-    <div id="intel-panel" style="display:none;margin-bottom:14px;background:var(--offb);border:1px solid var(--border2);border-left:3px solid var(--soil);padding:13px"></div>
-
+  <div class="modal">
+    <div class="modal-h"><span class="modal-t" id="modal-title">Plan post</span><button class="modal-x" onclick="closeModal()">&#215;</button></div>
+    <div class="intel" id="intel-panel" style="display:none">
+      <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-bottom:8px">Predictive estimate — based on your data</div>
+      <div class="intel-row" id="intel-row"></div>
+      <div id="intel-flags" style="margin-top:7px"></div>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-      <div class="ffield"><span class="flbl">Platform</span><select class="fsel" id="m-plat" onchange="updateIntel()"><option value="ig">Instagram</option><option value="li">LinkedIn</option><option value="tk">TikTok</option><option value="yt">YouTube</option><option value="fb">Facebook</option></select></div>
+      <div class="ffield"><span class="flbl">Platform</span><select class="fsel" id="m-plat" onchange="updateIntel()"><option value="ig">Instagram</option><option value="li">LinkedIn</option><option value="tk">TikTok</option><option value="yt">YouTube</option></select></div>
       <div class="ffield"><span class="flbl">Format</span><select class="fsel" id="m-fmt" onchange="updateIntel()"><option>Reel</option><option>Carousel</option><option>Static image</option><option>Story</option><option>Article</option><option>Video</option><option>Short</option></select></div>
       <div class="ffield"><span class="flbl">Posting time</span><input type="time" class="finp" id="m-time" value="09:00" onchange="updateIntel()"></div>
       <div class="ffield"><span class="flbl">Reminder</span><select class="fsel" id="m-rem"><option>48h before</option><option>24h before</option><option>72h before</option><option>5 days before</option><option>No reminder</option></select></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-      <div class="ffield"><span class="flbl">Campaign tag</span><select class="fsel" id="m-camp"><option value="">No campaign</option><option>Q2 product launch</option><option>Spring awareness</option><option>Thought leadership series</option><option>Client results showcase</option><option>+ Create new campaign</option></select></div>
-      <div class="ffield"><span class="flbl">Collaborator (optional)</span><input class="finp" id="m-collab" placeholder="e.g. @lingo — IG Collab post" oninput="toggleCollabNote();updateIntel()"></div>
+      <div class="ffield"><span class="flbl">Campaign tag</span><select class="fsel" id="m-camp"><option value="">No campaign</option><option>Q2 product launch</option><option>Spring awareness</option><option>Thought leadership</option><option>Client results</option></select></div>
+      <div class="ffield"><span class="flbl">Collaborator (optional)</span><input class="finp" id="m-collab" placeholder="@handle — triggers collab boost" oninput="updateIntel()"></div>
     </div>
-    <div class="ffield" style="margin-bottom:8px"><span class="flbl">Caption / content notes</span><textarea class="fta" id="m-cap" placeholder="e.g. Outcome reveal Reel — hook: 'POV: you just found out...' — link in bio CTA" style="min-height:60px"></textarea></div>
-    <div class="ffield" style="margin-bottom:6px"><span class="flbl">Notes for team</span><input class="finp" id="m-notes" placeholder="e.g. Alex needs to film this by Tuesday"></div>
-    <div style="font-size:10px;color:var(--earth);margin-bottom:12px;padding:8px 11px;background:var(--offb);border:1px solid var(--border2);border-left:2px solid var(--dusty);display:none;letter-spacing:.2px" id="collab-note">Collab posts appear on both the brand account and the collaborator's profile — reach includes both audiences. Pulse will flag this in analytics so collab posts are not compared directly to solo brand posts.</div>
+    <div class="ffield"><span class="flbl">Caption / notes</span><textarea class="fta" id="m-cap" placeholder="Hook, key message, CTA..."></textarea></div>
+    <div class="ffield"><span class="flbl">Team notes</span><input class="finp" id="m-notes" placeholder="e.g. Alex films this by Tuesday"></div>
+    <div style="font-size:10px;color:var(--earth);margin:8px 0 12px;padding:8px 11px;background:var(--offb);border-left:2px solid var(--dusty);display:none;letter-spacing:.2px" id="collab-note">Collab posts appear on both accounts. Reach includes collaborator audience. Flagged in analytics separately.</div>
     <div style="display:flex;gap:8px"><button class="btn" style="flex:1" onclick="closeModal()">Cancel</button><button class="btn prim" style="flex:2" onclick="savePost()">Save post plan</button></div>
   </div>
 </div>
 
-<!-- PAID CAMPAIGN MODAL -->
-<div class="modal-bg" id="camp-modal-bg">
+<!-- CAMPAIGN MODAL -->
+<div class="modal-bg" id="camp-bg">
   <div class="modal">
-    <div class="modal-h"><span class="modal-t">Add paid campaign</span><button class="modal-x" onclick="closeCampModal()">×</button></div>
+    <div class="modal-h"><span class="modal-t">Add paid campaign</span><button class="modal-x" onclick="document.getElementById('camp-bg').classList.remove('open')">&#215;</button></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-      <div class="ffield"><span class="flbl">Platform</span><select class="fsel" id="c-plat"><option value="meta">Meta Ads (IG + FB)</option><option value="li-ads">LinkedIn Ads</option><option value="tiktok-ads">TikTok Ads</option><option value="google">Google Ads</option></select></div>
-      <div class="ffield"><span class="flbl">Campaign name</span><input class="finp" id="c-name" placeholder="e.g. Spring awareness push"></div>
+      <div class="ffield"><span class="flbl">Platform</span><select class="fsel" id="c-plat"><option value="meta">Meta Ads</option><option value="li-ads">LinkedIn Ads</option><option value="tt-ads">TikTok Ads</option></select></div>
+      <div class="ffield"><span class="flbl">Campaign name</span><input class="finp" id="c-name" placeholder="e.g. Spring awareness"></div>
       <div class="ffield"><span class="flbl">Start date</span><input type="date" class="finp" id="c-start"></div>
       <div class="ffield"><span class="flbl">End date</span><input type="date" class="finp" id="c-end"></div>
-      <div class="ffield"><span class="flbl">Total budget (£)</span><input type="number" class="finp" id="c-budget" placeholder="500" min="0"></div>
-      <div class="ffield"><span class="flbl">Daily budget (£)</span><input type="number" class="finp" id="c-daily" placeholder="50" min="0"></div>
+      <div class="ffield"><span class="flbl">Total budget (GBP)</span><input type="number" class="finp" id="c-budget" placeholder="500"></div>
+      <div class="ffield"><span class="flbl">Daily budget (GBP)</span><input type="number" class="finp" id="c-daily" placeholder="50"></div>
     </div>
-    <div class="ffield" style="margin-bottom:14px"><span class="flbl">Goal</span><select class="fsel" id="c-goal"><option>Brand awareness / reach</option><option>Lead generation</option><option>Website traffic</option><option>Engagement</option><option>Conversion / sales</option></select></div>
-    <div style="display:flex;gap:8px"><button class="btn" style="flex:1" onclick="closeCampModal()">Cancel</button><button class="btn prim" style="flex:2" onclick="saveCampaign()">Add to calendar</button></div>
+    <div style="display:flex;gap:8px"><button class="btn" style="flex:1" onclick="document.getElementById('camp-bg').classList.remove('open')">Cancel</button><button class="btn prim" style="flex:2" onclick="saveCampaign()">Add to calendar</button></div>
   </div>
 </div>
 
 <script>
-var screens={overview:{title:'Performance hub',tabs:['Overview','Paid vs organic','By campaign'],action:'+ Add widget',aibar:true},ai:{title:'AI insights',tabs:[],action:'',aibar:false},planner:{title:'Content planner',tabs:['Month','Week'],action:'+ Plan post',aibar:false},instagram:{title:'Instagram',tabs:['Overview','Organic','Paid','Reels'],action:'',aibar:true},linkedin:{title:'LinkedIn',tabs:['Overview','Organic','Paid'],action:'',aibar:true},tiktok:{title:'TikTok',tabs:['Overview','Videos','Paid'],action:'',aibar:true},youtube:{title:'YouTube',tabs:[],action:'',aibar:false},reports:{title:'Reports & schedules',tabs:['Reports','Scheduled'],action:'+ New report',aibar:false},dashbuilder:{title:'Dashboard builder',tabs:['Builder','Saved'],action:'Save dashboard',aibar:false},connections:{title:'Connections',tabs:['All','Organic','Paid'],action:'',aibar:false}};
-var charts={};
-function go(el,id){document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});if(el)el.classList.add('active');showScreen(id);}
-function goSub(el,id){document.querySelectorAll('.nav-sub').forEach(function(n){n.classList.remove('active');});el.classList.add('active');showScreen(id);}
-function showScreen(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});var sc=document.getElementById('sc-'+id);if(sc)sc.classList.add('active');var cfg=screens[id]||{title:id,tabs:[],action:'',aibar:true};document.getElementById('tb-title').textContent=cfg.title;document.getElementById('tb-tabs').innerHTML=cfg.tabs.map(function(t,i){return'<button class="tb-tab'+(i===0?' active':'')+'" onclick="chtab(this)">'+t+'</button>';}).join('');var a=document.getElementById('tb-action');a.textContent=cfg.action;a.style.display=cfg.action?'':'none';document.getElementById('aibar').style.display=cfg.aibar?'':'none';setTimeout(function(){initCharts(id);},60);}
-function chtab(el){el.closest('.tb-tabs,.ch-tabs').querySelectorAll('.tb-tab,.ch-tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
+var C = {};
+var pfFilter = 'all';
+var calYear = 2026, calMonth = 3;
+var editDate = null, editIdx = null;
+var dbType = 'line';
 
-// === CHARTS ===
-function initCharts(id){
-  if(id==='overview'){
-    if(charts['ch-overview'])charts['ch-overview'].destroy();
-    var c=document.getElementById('ch-overview');
-    if(c)charts['ch-overview']=new Chart(c,{type:'bar',data:{labels:['Wk1','Wk2','Wk3','Wk4'],datasets:[{label:'Instagram',data:[10200,11800,12400,13800],backgroundColor:'#D4537E',borderRadius:3,borderSkipped:false},{label:'TikTok',data:[14200,18400,22100,27400],backgroundColor:'#2B1517',borderRadius:3,borderSkipped:false},{label:'LinkedIn',data:[6800,7200,8100,9300],backgroundColor:'#3B82F6',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:7,boxHeight:7,padding:8,font:{size:10,family:'Josefin Sans'},color:'#927071'}}},scales:{x:{grid:{display:false},ticks:{font:{size:9,family:'Josefin Sans'},color:'#927071'}},y:{grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9,family:'Josefin Sans'},color:'#927071',callback:function(v){return v>=1000?(v/1000)+'K':v;}}}},interaction:{intersect:false,mode:'index'}}});
-    if(charts['ch-donut'])charts['ch-donut'].destroy();
-    var c2=document.getElementById('ch-donut');
-    if(c2)charts['ch-donut']=new Chart(c2,{type:'doughnut',data:{datasets:[{data:[48,82,31],backgroundColor:['#D4537E','#2B1517','#3B82F6'],borderWidth:0,hoverOffset:3}]},options:{cutout:'68%',plugins:{legend:{display:false},tooltip:{enabled:false}},responsive:false}});
-  }
-  if(id==='instagram'){if(charts['ch-ig'])charts['ch-ig'].destroy();var c=document.getElementById('ch-ig');if(c)charts['ch-ig']=new Chart(c,{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{label:'Eng. rate',data:[3.2,3.8,3.4,4.1,4.5,4.8],borderColor:'#D4537E',backgroundColor:'rgba(212,83,126,.06)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#D4537E'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:9,family:'Josefin Sans'},color:'#927071'}},y:{grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9,family:'Josefin Sans'},color:'#927071',callback:function(v){return v+'%';}}}}}})}
-  if(id==='linkedin'){if(charts['ch-li'])charts['ch-li'].destroy();var c=document.getElementById('ch-li');if(c)charts['ch-li']=new Chart(c,{type:'line',data:{labels:['Wk1','Wk2','Wk3','Wk4','Wk5','Wk6','Wk7','Wk8','Wk9','Wk10','Wk11','Wk12'],datasets:[{label:'Impressions',data:[2100,2400,2200,2800,3000,2900,3200,3400,3100,3600,3800,4100],borderColor:'#3B82F6',backgroundColor:'rgba(59,130,246,.06)',fill:true,tension:0.4,pointRadius:2,pointBackgroundColor:'#3B82F6'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:9,family:'Josefin Sans'},color:'#927071',maxTicksLimit:6}},y:{grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9,family:'Josefin Sans'},color:'#927071',callback:function(v){return v>=1000?(v/1000)+'K':v;}}}}}})}
-  if(id==='tiktok'){if(charts['ch-tt'])charts['ch-tt'].destroy();var c=document.getElementById('ch-tt');if(c)charts['ch-tt']=new Chart(c,{type:'doughnut',data:{datasets:[{data:[38,34,28],backgroundColor:['#2B1517','#4F362F','#B59FA1'],borderWidth:0,hoverOffset:3}]},options:{cutout:'66%',plugins:{legend:{display:false},tooltip:{enabled:false}},responsive:false}})}
-  if(id==='planner')renderCal();
-  if(id==='dashbuilder'){initFieldPalette();rebuildDB();}
-}
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var PC = {ig:'#D4537E',li:'#3B82F6',tk:'#2B1517',yt:'#EF4444',fb:'#1A6FA8'};
+var PL = {ig:'IG',li:'LI',tk:'TK',yt:'YT',fb:'FB'};
 
-// === AI CHAT ===
-var aiReplies={'Best time to post this week?':'Based on your engagement history: <strong>Instagram</strong> -- Tuesday and Thursday 9-11am. <strong>TikTok</strong> -- Monday and Friday 6-9pm. <strong>LinkedIn</strong> -- Wednesday 8-9am. Avoid weekends across all channels -- 31% lower engagement consistently.','Reels vs carousels -- what converts more?':'Reels are winning by a significant margin. <strong>Reels average 330 link taps</strong> vs 68 for carousels. Reels also score 88/100 on predictive data vs 74 for carousels. The gap is widening.','Which competitor is growing fastest?':'Based on publicly available data, brands in your category posting 4+ short-form videos/week are growing fastest. Your current TikTok frequency is 2x/week -- closing this gap is your biggest growth lever.','What content should I post next?':'Based on your last 30 days: post a <strong>28-34 second Reel</strong> with an outcome-reveal hook. Post Tuesday 9-11am. Caption: lead with the result, explain the process, add a "Save this" CTA. Your single highest-performing format.'};
-function sendAI(){var v=document.getElementById('ai-inp').value.trim();if(!v)return;go(null,'ai');document.querySelectorAll('.nav-item').forEach(function(n){if(n.textContent.trim().includes('AI insights'))n.classList.add('active');});setTimeout(function(){addChat(v,'user');},80);document.getElementById('ai-inp').value='';}
-function chipQ(q){document.getElementById('ai-inp').value=q;sendAI();}
-function sendChat(){var inp=document.getElementById('chat-inp');var v=inp.value.trim();if(!v)return;addChat(v,'user');inp.value='';}
-function aiQ(q){addChat(q,'user');}
-function addChat(text,role){var t=document.getElementById('chat-thread');if(role==='user'){t.innerHTML+='<div class="cmsg user"><div class="cav">B3</div><div class="cbub">'+text+'</div></div>';var r=aiReplies[text]||'Based on your connected data: your top-performing content this month uses outcome-first hooks in the first 2 seconds. Reels are driving 82% of your link taps. Would you like me to break this down by platform or post type?';setTimeout(function(){t.innerHTML+='<div class="cmsg ai"><div class="cav">AI</div><div class="cbub">'+r+'</div></div>';t.scrollIntoView({behavior:'smooth',block:'end'});},700);}t.scrollIntoView({behavior:'smooth',block:'end'});}
+var posts = {
+  '2026-3-7':[{pl:'ig',fmt:'Reel',time:'09:00',rem:'48h before',cap:'Client result reveal',collab:'',camp:''}],
+  '2026-3-10':[{pl:'li',fmt:'Article',time:'08:00',rem:'48h before',cap:'LinkedIn thought leadership',collab:'',camp:''}],
+  '2026-3-14':[{pl:'tk',fmt:'Video',time:'18:00',rem:'48h before',cap:'TikTok POV agency',collab:'',camp:''},{pl:'ig',fmt:'Carousel',time:'09:00',rem:'24h before',cap:'5 lessons',collab:'',camp:'Q2 product launch'}],
+  '2026-3-19':[{pl:'ig',fmt:'Reel',time:'09:00',rem:'48h before',cap:'Behind scenes onboarding',collab:'@lingo',camp:''}],
+  '2026-3-26':[{pl:'ig',fmt:'Static image',time:'11:00',rem:'24h before',cap:'Quote card',collab:'',camp:''},{pl:'tk',fmt:'Video',time:'19:00',rem:'48h before',cap:'Process reveal',collab:'',camp:''}]
+};
 
-// === HISTORICAL DATA ENGINE ===
-// Simulates what real API data would look like -- per platform/format/time slot stats from last 90 days
+var campaigns = [
+  {name:'Spring awareness',plat:'meta',sY:2026,sM:3,sD:8,eY:2026,eM:3,eD:17,budget:500,daily:50}
+];
+
+// Historical performance data for intelligence engine
 var HIST = {
-  ig: {
-    Reel:         {reach:[8200,9800,7400,12400,10200,8800,11200,9400],eng:[4.2,6.1,3.8,7.2,4.9,4.1,5.8,4.4],taps:[280,310,190,480,320,240,410,280],count:8,collab_mult:1.85},
-    Carousel:     {reach:[4800,5200,4100,6800,5400,4600],eng:[3.8,4.2,3.4,4.9,3.9,3.6],taps:[120,150,90,190,130,110],count:6,collab_mult:1.4},
-    'Static image':{reach:[2800,3100,2400,3600,2900],eng:[2.1,2.4,1.8,2.8,2.2],taps:[45,60,30,80,50],count:5,collab_mult:1.2},
-    Story:        {reach:[3200,2800,3600,2900,3400],eng:[1.4,1.2,1.8,1.3,1.6],taps:[20,15,28,18,22],count:5,collab_mult:1.1}
+  ig:{
+    Reel:{reach:[8200,9800,7400,12400,10200,8800,11200,9400],eng:[4.2,6.1,3.8,7.2,4.9,4.1,5.8,4.4],taps:[280,310,190,480,320,240,410,280],collab:1.85,peak:[9,10,11]},
+    Carousel:{reach:[4800,5200,4100,6800,5400],eng:[3.8,4.2,3.4,4.9,3.9],taps:[120,150,90,190,130],collab:1.4,peak:[9,10,11]},
+    'Static image':{reach:[2800,3100,2400,3600,2900],eng:[2.1,2.4,1.8,2.8,2.2],taps:[45,60,30,80,50],collab:1.2,peak:[9,10]},
+    Story:{reach:[3200,2800,3600,2900,3400],eng:[1.4,1.2,1.8,1.3,1.6],taps:[20,15,28,18,22],collab:1.1,peak:[8,9,18,19]}
   },
-  li: {
-    Article:      {reach:[6200,7800,5400,8200,6900,7100],eng:[3.4,4.2,2.9,4.3,3.7,3.9],taps:[180,240,140,220,200,210],count:6,collab_mult:1.5},
-    'Text posts': {reach:[2800,3200,2400,3800,2900],eng:[2.8,3.1,2.4,3.4,2.9],taps:[60,80,45,90,65],count:5,collab_mult:1.3},
-    Video:        {reach:[4200,4800,3800,5200,4400],eng:[3.8,4.1,3.4,4.5,3.9],taps:[120,140,100,160,125],count:5,collab_mult:1.6}
+  li:{
+    Article:{reach:[6200,7800,5400,8200,6900],eng:[3.4,4.2,2.9,4.3,3.7],taps:[180,240,140,220,200],collab:1.5,peak:[8,9]},
+    Video:{reach:[4200,4800,3800,5200,4400],eng:[3.8,4.1,3.4,4.5,3.9],taps:[120,140,100,160,125],collab:1.6,peak:[8,9]},
+    Carousel:{reach:[3200,3600,2900,4100,3400],eng:[3.0,3.3,2.7,3.6,3.1],taps:[90,110,70,130,95],collab:1.3,peak:[9,10]}
   },
-  tk: {
-    Video:        {reach:[18400,22100,16800,28400,20200,24800,19600,26400],eng:[6.2,8.4,5.8,9.1,6.8,7.9,6.4,8.2],taps:[280,540,240,620,380,490,310,560],count:8,collab_mult:2.1},
-    Short:        {reach:[12400,14200,11800,16400,13200],eng:[7.1,8.9,6.4,9.8,7.6],taps:[180,240,150,290,200],count:5,collab_mult:1.9}
+  tk:{
+    Video:{reach:[18400,22100,16800,28400,20200,24800,19600],eng:[6.2,8.4,5.8,9.1,6.8,7.9,6.4],taps:[280,540,240,620,380,490,310],collab:2.1,peak:[18,19,20]},
+    Short:{reach:[12400,14200,11800,16400,13200],eng:[7.1,8.9,6.4,9.8,7.6],taps:[180,240,150,290,200],collab:1.9,peak:[18,19,20]}
   },
-  yt: {
-    Video:        {reach:[],eng:[],taps:[],count:0,collab_mult:1.5},
-    Short:        {reach:[],eng:[],taps:[],count:0,collab_mult:1.6}
-  },
-  fb: {
-    'Static image':{reach:[1800,2100,1600,2400,1900],eng:[1.2,1.4,1.0,1.6,1.3],taps:[30,40,22,50,35],count:5,collab_mult:1.2}
-  }
+  yt:{Video:{reach:[],eng:[],taps:[],collab:1.5,peak:[16,17,18]}}
 };
 
-// Time slot multipliers -- hour of day effect on reach
-var TIME_MULT = {
-  ig: {'06':0.8,'07':0.9,'08':1.1,'09':1.3,'10':1.2,'11':1.1,'12':1.0,'13':0.95,'14':0.9,'15':0.85,'16':0.9,'17':1.0,'18':1.05,'19':1.1,'20':1.05,'21':0.95},
-  li: {'07':1.0,'08':1.3,'09':1.2,'10':1.0,'11':0.9,'12':0.85,'13':0.8,'14':0.8,'15':0.75,'16':0.8,'17':0.85,'18':0.7},
-  tk: {'06':0.7,'07':0.8,'12':1.0,'13':1.05,'17':1.1,'18':1.25,'19':1.3,'20':1.2,'21':1.1},
-  yt: {'08':1.0,'12':1.1,'16':1.2,'18':1.15,'20':1.1}
-};
+function avg(a){if(!a||!a.length)return 0;return a.reduce(function(x,y){return x+y;},0)/a.length;}
+function fmtK(n){return n>=1000?(n/1000).toFixed(1)+'K':Math.round(n).toString();}
 
-function avg(arr){if(!arr||!arr.length)return 0;return arr.reduce(function(a,b){return a+b;},0)/arr.length;}
-function fmt_k(n){return n>=1000?(n/1000).toFixed(1)+'K':Math.round(n).toString();}
-function rng(lo,hi){return Math.round(lo)+' - '+fmt_k(hi);}
+function getIntel(pl,fmt,timeStr,isCollab){
+  var pd = HIST[pl];
+  if(!pd) return null;
+  var fd = pd[fmt];
+  var hr = parseInt((timeStr||'09:00').substring(0,2));
 
-function getIntel(pl, fmt, timeStr, isCollab) {
-  var platData = HIST[pl];
-  if (!platData) return null;
-  var fmtData  = platData[fmt];
-
-  // Zero data state
-  if (!fmtData || fmtData.count === 0) {
-    return {
-      noData: true,
-      msg: 'No historical data yet for ' + (pl.toUpperCase()) + ' ' + fmt + '.',
-      hint: 'Pulse will track this post and build a baseline after 3-5 similar posts. Estimates below use the platform category average as a starting point.',
-      estReach: pl==='ig'?[3000,8000]:pl==='li'?[2000,6000]:pl==='tk'?[8000,20000]:[1000,4000],
-      estEng:   pl==='ig'?3.5:pl==='li'?3.0:pl==='tk'?6.0:2.0,
-      estTaps:  pl==='ig'?100:pl==='li'?80:pl==='tk'?200:30,
-      confidence: 'none'
-    };
+  if(!fd||!fd.reach.length){
+    return {noData:true,pl:pl,fmt:fmt};
   }
-
-  // Get base averages
-  var baseReach = avg(fmtData.reach);
-  var baseEng   = avg(fmtData.eng);
-  var baseTaps  = avg(fmtData.taps);
-  var count     = fmtData.count;
-
-  // Time slot multiplier
-  var hour = timeStr ? timeStr.substring(0,2) : '09';
-  var tMult = (TIME_MULT[pl] && TIME_MULT[pl][hour]) || 1.0;
-
-  // Collab multiplier
-  var cMult = isCollab ? fmtData.collab_mult : 1.0;
-
-  var finalReach = baseReach * tMult * cMult;
-  var finalEng   = baseEng * (isCollab ? 1.15 : 1.0);
-  var finalTaps  = baseTaps * tMult * cMult;
-
-  // Range: ===30%
-  var lo = finalReach * 0.7;
-  var hi = finalReach * 1.3;
-
-  // Confidence based on sample size
-  var conf = count >= 8 ? 'high' : count >= 4 ? 'medium' : 'low';
-  var confTxt = conf==='high'?('High -- '+count+' similar posts'):conf==='medium'?('Medium -- '+count+' similar posts'):('Low -- only '+count+' similar post'+(count===1?'':'s'));
-
-  // Best slot flag
-  var timeNum = parseInt(hour);
-  var isGoodTime = pl==='ig'?(timeNum>=9&&timeNum<=11):pl==='li'?(timeNum>=8&&timeNum<=9):pl==='tk'?(timeNum>=18&&timeNum<=20):true;
-
+  var bR = avg(fd.reach), bE = avg(fd.eng), bT = avg(fd.taps);
+  var cM = isCollab ? fd.collab : 1.0;
+  var isPeak = fd.peak.indexOf(hr) >= 0;
+  var tM = isPeak ? 1.25 : 0.85;
+  var fR = bR*tM*cM, fE = bE*(isCollab?1.12:1.0), fT = bT*tM*cM;
   return {
-    noData: false,
-    reachLo: Math.round(lo),
-    reachHi: Math.round(hi),
-    reachAvg: Math.round(finalReach),
-    eng: finalEng.toFixed(1),
-    taps: Math.round(finalTaps),
-    count: count,
-    confidence: conf,
-    confTxt: confTxt,
-    isGoodTime: isGoodTime,
-    isCollab: isCollab,
-    collabMult: fmtData.collab_mult,
-    tMult: tMult
+    noData:false,
+    reachLo:Math.round(fR*0.7), reachHi:Math.round(fR*1.3), reachAvg:Math.round(fR),
+    eng:fE.toFixed(1), taps:Math.round(fT),
+    count:fd.reach.length, isPeak:isPeak, isCollab:isCollab, collabMult:fd.collab,
+    conf:fd.reach.length>=7?'high':fd.reach.length>=4?'medium':'low'
   };
 }
 
-function updateIntel() {
-  var pl     = document.getElementById('m-plat').value;
-  var fmt    = document.getElementById('m-fmt').value;
-  var time   = document.getElementById('m-time').value;
+function updateIntel(){
+  var pl = document.getElementById('m-plat').value;
+  var fmt = document.getElementById('m-fmt').value;
+  var time = document.getElementById('m-time').value;
   var collab = document.getElementById('m-collab').value.trim().length > 0;
-  var panel  = document.getElementById('intel-panel');
-  panel.style.display = '';
+  var panel = document.getElementById('intel-panel');
+  var row = document.getElementById('intel-row');
+  var flags = document.getElementById('intel-flags');
+  var d = getIntel(pl,fmt,time,collab);
+  if(!d){panel.style.display='none';return;}
+  panel.style.display='';
 
-  var d = getIntel(pl, fmt, time, collab);
-  if (!d) { panel.style.display='none'; return; }
+  var confC = d.noData ? '#9A9893' : (d.conf==='high'?'#15803D':d.conf==='medium'?'#D97706':'#DC2626');
+  var confT = d.noData ? 'No prior data' : (d.conf==='high'?'High ('+d.count+' posts)':d.conf==='medium'?'Medium ('+d.count+' posts)':'Low ('+d.count+' posts)');
 
-  var confColor = d.confidence==='high'?'#15803D':d.confidence==='medium'?'#D97706':d.confidence==='none'?'#9A9893':'#DC2626';
-
-  if (d.noData) {
-    panel.innerHTML =
-      '<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin-bottom:8px">Predictive estimate -- no prior data</div>'+
-      '<div style="background:#FFFBEB;border:1px solid rgba(217,119,6,.2);border-left:2px solid #D97706;padding:8px 10px;font-size:11px;color:#92400E;margin-bottom:8px;line-height:1.6">'+
-        '<strong>No historical data yet for this format.</strong> '+d.hint+
-      '</div>'+
-      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+
-        '<div style="text-align:center;padding:8px;background:var(--white);border:1px solid var(--border)"><div style="font-size:15px;font-weight:300;color:var(--soil)">'+fmt_k(d.estReach[0])+'-'+fmt_k(d.estReach[1])+'</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:2px">Est. reach range</div></div>'+
-        '<div style="text-align:center;padding:8px;background:var(--white);border:1px solid var(--border)"><div style="font-size:15px;font-weight:300;color:var(--soil)">~'+d.estEng+'%</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:2px">Est. engagement</div></div>'+
-        '<div style="text-align:center;padding:8px;background:var(--white);border:1px solid var(--border)"><div style="font-size:15px;font-weight:300;color:var(--soil)">~'+d.estTaps+'</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:2px">Est. link taps</div></div>'+
-      '</div>';
+  if(d.noData){
+    row.innerHTML = '<div class="intel-cell"><div class="intel-v" style="color:var(--mauve)">No data</div><div class="intel-l">Reach range</div></div><div class="intel-cell"><div class="intel-v" style="color:var(--mauve)">--</div><div class="intel-l">Eng. rate</div></div><div class="intel-cell"><div class="intel-v" style="color:var(--mauve)">--</div><div class="intel-l">Est. taps</div></div>';
+    flags.innerHTML = '<div style="font-size:10px;color:#D97706;padding:5px 8px;background:#FFFBEB;border-left:2px solid #D97706">No historical data yet for this format. Pulse will build a baseline after 3-5 similar posts. Estimates will use category averages once available.</div>';
     return;
   }
 
-  var flags = '';
-  if (!d.isGoodTime) flags += '<div style="font-size:10px;color:#D97706;margin-top:7px;padding:5px 8px;background:#FFFBEB;border-left:2px solid #D97706">! Not your peak window. Your '+pl.toUpperCase()+' posts perform best at different times -- consider adjusting.</div>';
-  if (d.isCollab) flags += '<div style="font-size:10px;color:#15803D;margin-top:5px;padding:5px 8px;background:#F0FDF4;border-left:2px solid #22C55E">+ Collab boost applied -- historically '+d.collabMult+'x wider reach on this format.</div>';
+  row.innerHTML =
+    '<div class="intel-cell"><div class="intel-v">'+fmtK(d.reachLo)+'-'+fmtK(d.reachHi)+'</div><div class="intel-l">Reach range</div></div>'+
+    '<div class="intel-cell"><div class="intel-v">'+d.eng+'%</div><div class="intel-l">Avg eng. rate</div></div>'+
+    '<div class="intel-cell"><div class="intel-v">'+d.taps+'</div><div class="intel-l">Est. link taps</div></div>';
 
-  panel.innerHTML =
-    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'+
-      '<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve)">Predictive estimate -- based on your data</div>'+
-      '<span style="font-size:9px;letter-spacing:1px;padding:2px 8px;border:1px solid '+confColor+';color:'+confColor+'">'+(d.confidence==='high'?'*':d.confidence==='medium'?'*':'*')+' '+d.confTxt+'</span>'+
-    '</div>'+
-    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:0">'+
-      '<div style="text-align:center;padding:10px 8px;background:var(--white);border:1px solid var(--border)">'+
-        '<div style="font-size:16px;font-weight:300;color:var(--soil);letter-spacing:-0.5px">'+fmt_k(d.reachLo)+'-'+fmt_k(d.reachHi)+'</div>'+
-        '<div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Reach range</div>'+
-      '</div>'+
-      '<div style="text-align:center;padding:10px 8px;background:var(--white);border:1px solid var(--border)">'+
-        '<div style="font-size:16px;font-weight:300;color:var(--soil);">'+d.eng+'%</div>'+
-        '<div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Avg eng. rate</div>'+
-      '</div>'+
-      '<div style="text-align:center;padding:10px 8px;background:var(--white);border:1px solid var(--border)">'+
-        '<div style="font-size:16px;font-weight:300;color:var(--soil);">'+d.taps+'</div>'+
-        '<div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Est. link taps</div>'+
-      '</div>'+
-    '</div>'+flags;
+  var fl = '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px"><span style="font-size:9px;color:'+confC+';border:1px solid '+confC+';padding:1px 8px;letter-spacing:.5px">'+confT+'</span></div>';
+  if(!d.isPeak) fl += '<div style="font-size:10px;color:#D97706;padding:5px 8px;background:#FFFBEB;border-left:2px solid #D97706;margin-top:5px">Not your peak window. Your best time for this format is different -- consider adjusting.</div>';
+  if(d.isCollab) fl += '<div style="font-size:10px;color:#15803D;padding:5px 8px;background:#F0FDF4;border-left:2px solid #22C55E;margin-top:5px">Collab boost applied -- historically '+d.collabMult+'x wider reach on this format.</div>';
+  flags.innerHTML = fl;
 }
 
-// === PROJECTION ENGINE ===
-function projectMonth() {
-  // Gather all posts for current month
-  var monthPosts = [];
-  for (var key in posts) {
-    var parts = key.split('-');
-    if (parseInt(parts[0])===calYear && parseInt(parts[1])===calMonth) {
-      posts[key].forEach(function(p){ monthPosts.push(p); });
+function projectMonth(){
+  var mp = [];
+  for(var key in posts){
+    var pts = key.split('-');
+    if(parseInt(pts[0])===calYear && parseInt(pts[1])===calMonth){
+      posts[key].forEach(function(p){mp.push(p);});
     }
   }
-  if (monthPosts.length === 0) {
-    alert('No posts planned yet for this month. Add some posts to the calendar first.');
-    return;
-  }
-
-  var totalReach = 0, totalEng = 0, totalTaps = 0, totalPipe = 0;
-  var strongPosts = [], weakPosts = [], noDataPosts = [];
-
-  monthPosts.forEach(function(p) {
-    var isCollab = !!(p.collab && p.collab.trim());
-    var d = getIntel(p.pl, p.fmt, p.time, isCollab);
-    if (!d) return;
-
-    if (d.noData) {
-      // Use the category estimate midpoint
-      var mid = Math.round((d.estReach[0]+d.estReach[1])/2);
-      totalReach += mid;
-      totalEng   += d.estEng;
-      totalTaps  += d.estTaps;
-      totalPipe  += d.estTaps * 0.045 * 120;
-      noDataPosts.push(p.fmt + ' (' + p.pl.toUpperCase() + ')');
-    } else {
-      totalReach += d.reachAvg;
-      totalEng   += parseFloat(d.eng);
-      totalTaps  += d.taps;
-      totalPipe  += d.taps * 0.045 * 120; // rough: 4.5% session rate, ===120 avg pipeline/lead
-      if (d.confidence === 'high' && d.isGoodTime) {
-        strongPosts.push(p.fmt + ' (' + p.pl.toUpperCase() + ', ' + (p.time||'09:00') + ')');
-      }
-      if (d.confidence === 'low' || !d.isGoodTime) {
-        weakPosts.push(p.fmt + ' (' + p.pl.toUpperCase() + ', ' + (p.time||'09:00') + ')');
-      }
+  if(!mp.length){alert('No posts planned yet. Add some posts first.');return;}
+  var tR=0,tE=0,tT=0,tP=0,strong=[],weak=[],nd=[];
+  mp.forEach(function(p){
+    var isC = !!(p.collab&&p.collab.trim());
+    var d = getIntel(p.pl,p.fmt,p.time,isC);
+    if(!d) return;
+    if(d.noData){tR+=5000;tE+=3.5;tT+=100;tP+=100*0.045*120;nd.push(p.fmt+' ('+p.pl.toUpperCase()+')');}
+    else{
+      tR+=d.reachAvg;tE+=parseFloat(d.eng);tT+=d.taps;tP+=d.taps*0.045*120;
+      if(d.conf==='high'&&d.isPeak) strong.push(p.fmt+' ('+p.pl.toUpperCase()+')');
+      if(!d.isPeak||d.conf==='low') weak.push(p.fmt+' ('+p.pl.toUpperCase()+')');
     }
   });
-
-  var avgEng = (totalEng / monthPosts.length).toFixed(1);
-
-  document.getElementById('proj-reach').textContent = fmt_k(totalReach);
-  document.getElementById('proj-eng').textContent   = avgEng + '%';
-  document.getElementById('proj-taps').textContent  = fmt_k(totalTaps);
-  document.getElementById('proj-pipe').textContent  = 'x' + fmt_k(totalPipe);
-  document.getElementById('proj-posts').textContent = monthPosts.length + ' posts';
-
-  var flags = '';
-  if (strongPosts.length) {
-    flags += '<div style="font-size:11px;color:#4ADE80;padding:6px 10px;background:rgba(74,222,128,.08);border-left:2px solid #4ADE80;letter-spacing:.2px">* Strongest planned: ' + strongPosts.slice(0,2).join(' | ') + ' -- high confidence, peak timing</div>';
-  }
-  if (weakPosts.length) {
-    flags += '<div style="font-size:11px;color:#F59E0B;padding:6px 10px;background:rgba(245,158,11,.08);border-left:2px solid #F59E0B;letter-spacing:.2px;margin-top:5px">! Consider rescheduling: ' + weakPosts.slice(0,2).join(' | ') + ' -- off-peak timing or limited data</div>';
-  }
-  if (noDataPosts.length) {
-    flags += '<div style="font-size:11px;color:#B59FA1;padding:6px 10px;background:rgba(181,159,161,.08);border-left:2px solid #B59FA1;letter-spacing:.2px;margin-top:5px">* New formats (category avg used): ' + [...new Set(noDataPosts)].join(', ') + '</div>';
-  }
-  document.getElementById('proj-flags').innerHTML = flags;
-  document.getElementById('projection-banner').style.display = '';
-  document.getElementById('projection-banner').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('proj-reach').textContent = fmtK(tR);
+  document.getElementById('proj-eng').textContent = (tE/mp.length).toFixed(1)+'%';
+  document.getElementById('proj-taps').textContent = fmtK(tT);
+  document.getElementById('proj-pipe').textContent = 'GBP'+fmtK(tP);
+  document.getElementById('proj-posts').textContent = mp.length+' posts';
+  var fl = '';
+  if(strong.length) fl += '<div style="font-size:11px;color:#4ADE80;padding:6px 10px;background:rgba(74,222,128,.08);border-left:2px solid #4ADE80">Strong: '+strong.slice(0,2).join(' and ')+'</div>';
+  if(weak.length)   fl += '<div style="font-size:11px;color:#F59E0B;padding:6px 10px;background:rgba(245,158,11,.08);border-left:2px solid #F59E0B;margin-top:5px">Off-peak: '+weak.slice(0,2).join(' and ')+'</div>';
+  if(nd.length)     fl += '<div style="font-size:11px;color:#B59FA1;padding:6px 10px;background:rgba(181,159,161,.08);border-left:2px solid #B59FA1;margin-top:5px">New formats (category avg used): '+[...new Set(nd)].join(', ')+'</div>';
+  document.getElementById('proj-flags').innerHTML = fl;
+  var pw = document.getElementById('proj-wrap');
+  pw.style.display = 'block';
+  pw.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// === PLATFORM FILTER ===
-var currentPlatFilter = 'all';
-function setPlatFilter(plat, btn) {
-  currentPlatFilter = plat;
-  document.querySelectorAll('#plat-filter-tabs .ch-tab').forEach(function(b){b.classList.remove('active');});
+function setPF(f,btn){
+  pfFilter = f;
+  document.querySelectorAll('#pf-tabs .pf-tab').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   renderCal();
 }
 
-// === CALENDAR ===
-var calYear=2026, calMonth=3;
-var posts={
-  '2026-3-7':[{pl:'ig',fmt:'Reel',time:'09:00',cap:'Client result reveal hook',rem:'48h before'}],
-  '2026-3-10':[{pl:'li',fmt:'Article',time:'08:00',cap:'LinkedIn thought leadership',rem:'48h before'}],
-  '2026-3-14':[{pl:'tk',fmt:'Video',time:'18:00',cap:'TikTok POV agency process',rem:'48h before'},{pl:'ig',fmt:'Carousel',time:'09:00',cap:'5 lessons from last quarter',rem:'24h before'}],
-  '2026-3-19':[{pl:'ig',fmt:'Reel',time:'10:00',cap:'Behind the scenes: onboarding',rem:'48h before',collab:'@lingo'}],
-  '2026-3-26':[{pl:'ig',fmt:'Static image',time:'11:00',cap:'Quote card',rem:'24h before'},{pl:'tk',fmt:'Video',time:'19:00',cap:'Process reveal short-form',rem:'48h before'}]
-};
+function calNav(d){
+  calMonth += d;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  renderCal();
+}
 
-// Paid campaigns: {name, plat, start:'YYYY-M-D', end:'YYYY-M-D', budget, daily, goal}
-var campaigns=[
-  {name:'Spring awareness',plat:'meta',start:'2026-3-8',end:'2026-3-17',budget:500,daily:50,goal:'Brand awareness / reach'}
-];
-
-var PC={ig:'#D4537E',li:'#3B82F6',tk:'#2B1517',yt:'#EF4444',fb:'#1A6FA8'};
-var PL={ig:'IG',li:'LI',tk:'TK',yt:'YT',fb:'FB'};
-var PCLABEL={ig:'Instagram',li:'LinkedIn',tk:'TikTok',yt:'YouTube',fb:'Facebook'};
-var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-var editDate=null,editIdx=null;
-
-function calNav(d){calMonth+=d;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCal();}
-
-function dateKey(y,m,d){return y+'-'+m+'-'+d;}
-
-function isCampDay(y,m,day){
+function isCampDays(y,m,day){
   var check = new Date(y,m,day);
-  return campaigns.filter(function(camp){
-    var s=camp.start.split('-'),e=camp.end.split('-');
-    var sd=new Date(parseInt(s[0]),parseInt(s[1])-1,parseInt(s[2]));
-    var ed=new Date(parseInt(e[0]),parseInt(e[1])-1,parseInt(e[2]));
-    return check>=sd && check<=ed;
+  return campaigns.filter(function(c){
+    var sd=new Date(c.sY,c.sM,c.sD), ed=new Date(c.eY,c.eM,c.eD);
+    return check>=sd&&check<=ed;
   });
 }
 
 function renderCal(){
   var wrap=document.getElementById('cal-wrap');
   var lbl=document.getElementById('cal-lbl');
-  if(!wrap||!lbl)return;
-  lbl.textContent=MONTHS[calMonth]+' '+calYear;
+  if(!wrap||!lbl) return;
+  lbl.textContent = MONTHS[calMonth]+' '+calYear;
   var first=new Date(calYear,calMonth,1).getDay();
   var days=new Date(calYear,calMonth+1,0).getDate();
   var off=(first+6)%7;
   var now=new Date();
   var html='<div class="cal-grid">';
   ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(function(d){html+='<div class="cal-dh">'+d+'</div>';});
-  for(var i=0;i<off;i++)html+='<div class="cal-day" style="background:var(--offb)"></div>';
+  for(var i=0;i<off;i++) html+='<div class="cal-day" style="background:var(--offb)"></div>';
   for(var d=1;d<=days;d++){
-    var key=dateKey(calYear,calMonth,d);
+    var key=calYear+'-'+calMonth+'-'+d;
     var allPs=posts[key]||[];
-    // Filter by platform
-    var ps=currentPlatFilter==='all'?allPs:allPs.filter(function(p){return p.pl===currentPlatFilter;});
+    var ps=pfFilter==='all'?allPs:allPs.filter(function(p){return p.pl===pfFilter;});
     var iT=now.getFullYear()===calYear&&now.getMonth()===calMonth&&now.getDate()===d;
     var dow=(off+d-1)%7;
     var wk=dow===5||dow===6;
-    var activeCamps=isCampDay(calYear,calMonth,d);
-    var campBg=activeCamps.length?'background:#EFF6FF;':'';
-
-    html+='<div class="cal-day" style="'+campBg+'" onclick="openAdd(''+key+'')">';
+    var camps=isCampDays(calYear,calMonth,d);
+    var cbg=camps.length?'background:#F0F7FF;':'';
+    html+='<div class="cal-day" style="'+cbg+'" onclick="openAdd(\''+key+'\')">';
     html+='<div class="cal-num'+(iT?' today':'')+(wk&&!iT?' wknd':'')+'">'+d+'</div>';
-
-    // Paid campaign banner at top of day
-    if(activeCamps.length){
-      activeCamps.forEach(function(camp){
-        html+='<div style="font-size:7.5px;letter-spacing:.8px;background:#DBEAFE;border-left:2px solid #3B82F6;padding:2px 4px;margin-bottom:2px;color:#1D4ED8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">GBP'+camp.daily+'/d - '+camp.name+'</div>';
-      });
-    }
-
+    camps.forEach(function(c){html+='<div class="cal-camp">GBP'+c.daily+'/d - '+c.name+'</div>';});
     ps.forEach(function(p,i){
-      var isCollab=!!(p.collab&&p.collab.trim());
-      var d2=getIntel(p.pl,p.fmt,p.time,isCollab);
-      var qualBg='';
-      if(d2&&!d2.noData){
-        if(d2.confidence==='high'&&d2.isGoodTime) qualBg='background:rgba(34,197,94,.08);';
-        else if(!d2.isGoodTime) qualBg='background:rgba(245,158,11,.06);';
-      }
-      var cm=isCollab?'<span style="font-size:8px;color:#D97706" title="Collab: '+p.collab+'">*</span>':'';
-      var ca=p.camp?'<span style="font-size:8px;color:var(--dusty)" title="Campaign: '+p.camp+'">.</span>':'';
-      html+='<div class="cal-post" style="'+qualBg+'border-left:2px solid '+(PC[p.pl]||'#888')+'" onclick="event.stopPropagation();openEdit(''+key+'','+i+')" title="'+p.fmt+' - '+(p.time||'')+(isCollab?' | Collab':'')+(d2&&!d2.noData?' | Est. reach: '+fmt_k(d2.reachLo)+'-'+fmt_k(d2.reachHi):'')+'">'+
-        '<span style="font-size:8.5px;font-weight:400;color:'+(PC[p.pl]||'#888')+'">'+(PL[p.pl]||p.pl)+'</span>'+
-        '<span style="font-size:8.5px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:50px">'+p.fmt+'</span>'+
-        cm+ca+'</div>';
+      var isC=!!(p.collab&&p.collab.trim());
+      var intel=getIntel(p.pl,p.fmt,p.time,isC);
+      var cls='cal-post';
+      if(intel&&!intel.noData){cls+=(intel.conf==='high'&&intel.isPeak)?' strong':(!intel.isPeak?' weak':'');}
+      var cm=isC?'<span style="font-size:8px;color:#D97706">*</span>':'';
+      var ca=p.camp?'<span style="font-size:8px;color:var(--dusty)">.</span>':'';
+      var tip=p.fmt+(p.time?' - '+p.time:'')+(isC?' | Collab':'')+(intel&&!intel.noData?' | Est: '+fmtK(intel.reachLo)+'-'+fmtK(intel.reachHi):'');
+      html+='<div class="'+cls+'" style="border-left-color:'+(PC[p.pl]||'#888')+'" onclick="event.stopPropagation();openEdit(\''+key+'\','+i+')" title="'+tip+'">'+'<span style="font-size:8.5px;font-weight:400;color:'+(PC[p.pl]||'#888')+'">'+(PL[p.pl]||p.pl)+'</span>'+'<span style="font-size:8.5px;color:var(--mauve);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:50px">'+p.fmt+'</span>'+cm+ca+'</div>';
     });
     html+='<span class="cal-plus">+</span></div>';
   }
@@ -1149,7 +907,7 @@ function renderCal(){
 function openAdd(key){
   editDate=key;editIdx=null;
   var d=key?key.split('-'):null;
-  document.getElementById('modal-title').textContent=d?('Plan post -- '+d[2]+' '+MONTHS[parseInt(d[1])]):'Plan post';
+  document.getElementById('modal-title').textContent=d?('Plan post - '+d[2]+' '+MONTHS[parseInt(d[1])]):'Plan post';
   ['m-camp','m-collab','m-cap','m-notes'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('m-plat').value='ig';
   document.getElementById('m-fmt').value='Reel';
@@ -1163,7 +921,7 @@ function openEdit(key,idx){
   editDate=key;editIdx=idx;
   var p=posts[key][idx];
   var d=key.split('-');
-  document.getElementById('modal-title').textContent='Edit post -- '+d[2]+' '+MONTHS[parseInt(d[1])];
+  document.getElementById('modal-title').textContent='Edit post - '+d[2]+' '+MONTHS[parseInt(d[1])];
   document.getElementById('m-plat').value=p.pl;
   document.getElementById('m-fmt').value=p.fmt;
   document.getElementById('m-time').value=p.time||'09:00';
@@ -1179,49 +937,189 @@ function openEdit(key,idx){
 function closeModal(){document.getElementById('modal-bg').classList.remove('open');editDate=null;editIdx=null;}
 function toggleCollabNote(){document.getElementById('collab-note').style.display=document.getElementById('m-collab').value.trim()?'':'none';}
 function savePost(){
-  if(!editDate)return;
+  if(!editDate) return;
   var p={pl:document.getElementById('m-plat').value,fmt:document.getElementById('m-fmt').value,time:document.getElementById('m-time').value,rem:document.getElementById('m-rem').value,camp:document.getElementById('m-camp').value,collab:document.getElementById('m-collab').value,cap:document.getElementById('m-cap').value,notes:document.getElementById('m-notes').value};
-  if(!posts[editDate])posts[editDate]=[];
-  if(editIdx!==null)posts[editDate][editIdx]=p;else posts[editDate].push(p);
+  if(!posts[editDate]) posts[editDate]=[];
+  if(editIdx!==null) posts[editDate][editIdx]=p;
+  else posts[editDate].push(p);
   closeModal();renderCal();
 }
-
-// === PAID CAMPAIGNS ===
-function openAddCampaign(){document.getElementById('camp-modal-bg').classList.add('open');}
-function closeCampModal(){document.getElementById('camp-modal-bg').classList.remove('open');}
+function openCampModal(){document.getElementById('camp-bg').classList.add('open');}
 function saveCampaign(){
-  var name=document.getElementById('c-name').value.trim()||'Paid campaign';
-  var plat=document.getElementById('c-plat').value;
-  var start=document.getElementById('c-start').value;
-  var end=document.getElementById('c-end').value;
-  var budget=parseFloat(document.getElementById('c-budget').value)||0;
-  var daily=parseFloat(document.getElementById('c-daily').value)||0;
-  var goal=document.getElementById('c-goal').value;
-  if(!start||!end){alert('Please set start and end dates.');return;}
-  // Convert YYYY-MM-DD to YYYY-M-D format for isCampDay
-  function toKey(s){var p=s.split('-');return p[0]+'-'+parseInt(p[1])+'-'+parseInt(p[2]);}
-  campaigns.push({name:name,plat:plat,start:toKey(start),end:toKey(end),budget:budget,daily:daily,goal:goal});
-  closeCampModal();renderCal();
+  var n=document.getElementById('c-name').value||'Paid campaign';
+  var pl=document.getElementById('c-plat').value;
+  var s=document.getElementById('c-start').value;
+  var e=document.getElementById('c-end').value;
+  var b=parseFloat(document.getElementById('c-budget').value)||0;
+  var dl=parseFloat(document.getElementById('c-daily').value)||0;
+  if(!s||!e){alert('Set start and end dates');return;}
+  var sp=s.split('-'),ep=e.split('-');
+  campaigns.push({name:n,plat:pl,sY:parseInt(sp[0]),sM:parseInt(sp[1])-1,sD:parseInt(sp[2]),eY:parseInt(ep[0]),eM:parseInt(ep[1])-1,eD:parseInt(ep[2]),budget:b,daily:dl});
+  document.getElementById('camp-bg').classList.remove('open');
+  renderCal();
 }
 
-// === DASHBOARD BUILDER ===
-var DB_FIELDS=[{section:'Instagram',key:'ig_reach',label:'Reach',unit:'#',color:'#D4537E'},{section:'Instagram',key:'ig_eng',label:'Engagement rate',unit:'%',color:'#ED93B1'},{section:'Instagram',key:'ig_taps',label:'Link taps',unit:'#',color:'#993556'},{section:'LinkedIn',key:'li_impr',label:'Impressions',unit:'#',color:'#3B82F6'},{section:'LinkedIn',key:'li_eng',label:'Engagement rate',unit:'%',color:'#85B7EB'},{section:'LinkedIn',key:'li_visits',label:'Profile visits',unit:'#',color:'#1D4ED8'},{section:'Meta Ads',key:'revenue',label:'Revenue (GBP)',unit:'x',color:'#22C55E'},{section:'Meta Ads',key:'adspend',label:'Ad spend (GBP)',unit:'x',color:'#6366F1'},{section:'Meta Ads',key:'roas',label:'ROAS',unit:'x',color:'#15803D'},{section:'TikTok',key:'tt_views',label:'Views',unit:'#',color:'#2B1517'},{section:'TikTok',key:'tt_comp',label:'Completion rate',unit:'%',color:'#4F362F'},{section:'HubSpot / GA4',key:'pipeline',label:'Pipeline value (GBP)',unit:'x',color:'#15803D'},{section:'HubSpot / GA4',key:'leads',label:'Leads from social',unit:'#',color:'#22C55E'},{section:'HubSpot / GA4',key:'sessions',label:'Web sessions',unit:'#',color:'#3B82F6'},{section:'HubSpot / GA4',key:'demos',label:'Demo bookings',unit:'#',color:'#927071'},{section:'HubSpot / GA4',key:'conv_rate',label:'Social conversion %',unit:'%',color:'#D97706'}];
+// NAVIGATION
+var screens={
+  overview:{title:'Performance hub',tabs:['Overview','Paid vs organic','By campaign'],action:'+ Add widget',aibar:true},
+  ai:{title:'AI insights',tabs:[],action:'',aibar:false},
+  planner:{title:'Content planner',tabs:['Month','Week'],action:'',aibar:false},
+  instagram:{title:'Instagram',tabs:['Overview','Organic','Paid','Reels'],action:'',aibar:true},
+  linkedin:{title:'LinkedIn',tabs:['Overview','Organic','Paid'],action:'',aibar:true},
+  tiktok:{title:'TikTok',tabs:['Overview','Videos','Paid'],action:'',aibar:true},
+  youtube:{title:'YouTube',tabs:[],action:'',aibar:false},
+  reports:{title:'Reports & schedules',tabs:['Reports','Scheduled'],action:'+ New report',aibar:false},
+  dashbuilder:{title:'Dashboard builder',tabs:['Builder','Saved'],action:'',aibar:false},
+  connections:{title:'Connections',tabs:['All','Organic','Paid'],action:'',aibar:false}
+};
+
+function go(el,id){
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  if(el) el.classList.add('active');
+  showScreen(id);
+}
+function goSub(el,id){
+  document.querySelectorAll('.nav-sub').forEach(function(n){n.classList.remove('active');});
+  el.classList.add('active');
+  showScreen(id);
+}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  var sc=document.getElementById('sc-'+id);
+  if(sc) sc.classList.add('active');
+  var cfg=screens[id]||{title:id,tabs:[],action:'',aibar:true};
+  document.getElementById('tb-title').textContent=cfg.title;
+  document.getElementById('tb-tabs').innerHTML=cfg.tabs.map(function(t,i){return'<button class="tb-tab'+(i===0?' active':'')+'" onclick="chtab(this)">'+t+'</button>';}).join('');
+  var a=document.getElementById('tb-action');
+  a.textContent=cfg.action;
+  a.style.display=cfg.action?'':'none';
+  document.getElementById('aibar').style.display=cfg.aibar?'':'none';
+  setTimeout(function(){initCharts(id);},60);
+}
+function chtab(el){el.closest('.tb-tabs,.ch-tabs').querySelectorAll('.tb-tab,.ch-tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');}
+
+// CHARTS
+function initCharts(id){
+  if(id==='overview'){
+    if(C['ov']) C['ov'].destroy();
+    var ctx=document.getElementById('ch-overview');
+    if(ctx) C['ov']=new Chart(ctx,{type:'bar',data:{labels:['Wk1','Wk2','Wk3','Wk4'],datasets:[{label:'Instagram',data:[10200,11800,12400,13800],backgroundColor:'#D4537E',borderRadius:3,borderSkipped:false},{label:'TikTok',data:[14200,18400,22100,27400],backgroundColor:'#2B1517',borderRadius:3,borderSkipped:false},{label:'LinkedIn',data:[6800,7200,8100,9300],backgroundColor:'#3B82F6',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:7,boxHeight:7,padding:8,font:{size:10},color:'#927071'}}},scales:{x:{grid:{display:false},ticks:{font:{size:9},color:'#927071'}},y:{grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9},color:'#927071',callback:function(v){return v>=1000?(v/1000)+'K':v;}}}},interaction:{intersect:false,mode:'index'}}});
+    if(C['dn']) C['dn'].destroy();
+    var ctx2=document.getElementById('ch-donut');
+    if(ctx2) C['dn']=new Chart(ctx2,{type:'doughnut',data:{datasets:[{data:[48,82,31],backgroundColor:['#D4537E','#2B1517','#3B82F6'],borderWidth:0}]},options:{cutout:'68%',plugins:{legend:{display:false},tooltip:{enabled:false}},responsive:false}});
+  }
+  if(id==='instagram'){
+    if(C['ig']) C['ig'].destroy();
+    var ctx=document.getElementById('ch-ig');
+    if(ctx) C['ig']=new Chart(ctx,{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{label:'Eng. rate',data:[3.2,3.8,3.4,4.1,4.5,4.8],borderColor:'#D4537E',backgroundColor:'rgba(212,83,126,.06)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#D4537E'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:9},color:'#927071'}},y:{grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9},color:'#927071',callback:function(v){return v+'%';}}}}}});
+  }
+  if(id==='linkedin'){
+    if(C['li']) C['li'].destroy();
+    var ctx=document.getElementById('ch-li');
+    if(ctx) C['li']=new Chart(ctx,{type:'line',data:{labels:['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'],datasets:[{label:'Impressions',data:[2100,2400,2200,2800,3000,2900,3200,3400,3100,3600,3800,4100],borderColor:'#3B82F6',backgroundColor:'rgba(59,130,246,.06)',fill:true,tension:0.4,pointRadius:2,pointBackgroundColor:'#3B82F6'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:9},color:'#927071',maxTicksLimit:6}},y:{grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9},color:'#927071',callback:function(v){return v>=1000?(v/1000)+'K':v;}}}}}});
+  }
+  if(id==='tiktok'){
+    if(C['tt']) C['tt'].destroy();
+    var ctx=document.getElementById('ch-tt');
+    if(ctx) C['tt']=new Chart(ctx,{type:'doughnut',data:{datasets:[{data:[38,34,28],backgroundColor:['#2B1517','#4F362F','#B59FA1'],borderWidth:0}]},options:{cutout:'66%',plugins:{legend:{display:false},tooltip:{enabled:false}},responsive:false}});
+  }
+  if(id==='planner') renderCal();
+  if(id==='dashbuilder'){initFieldPalette();rebuildDB();}
+}
+
+// AI CHAT
+var aiReplies={
+  'Best time to post this week?':'Based on your engagement history: Instagram on Tuesday and Thursday 9-11am. TikTok Monday and Friday 6-9pm. LinkedIn Wednesday 8-9am. Avoid weekends -- 31% lower engagement consistently.',
+  'Reels vs carousels?':'Reels are winning. Reels average 330 link taps vs 68 for carousels. Reels also score 88 vs 74 on the data matching. The gap is widening -- carousel engagement has been flat 6 weeks.',
+  'What to post next?':'Based on your last 30 days: post a 28-34 second Reel with an outcome-reveal hook. Post Tuesday 9-11am. Caption: lead with the result, explain the process, add a "Save this" CTA.'
+};
+function sendAI(){var v=document.getElementById('ai-inp').value.trim();if(!v)return;go(null,'ai');document.querySelectorAll('.nav-item').forEach(function(n){if(n.textContent.trim().indexOf('AI insights')>=0)n.classList.add('active');});setTimeout(function(){addChat(v,'user');},80);document.getElementById('ai-inp').value='';}
+function chipQ(q){document.getElementById('ai-inp').value=q;sendAI();}
+function sendChat(){var inp=document.getElementById('chat-inp');var v=inp.value.trim();if(!v)return;addChat(v,'user');inp.value='';}
+function aiQ(q){addChat(q,'user');}
+function addChat(text,role){
+  var t=document.getElementById('chat-thread');
+  if(role==='user'){
+    t.innerHTML+='<div class="cmsg user"><div class="cav">B3</div><div class="cbub">'+text+'</div></div>';
+    var r=aiReplies[text]||'Based on your connected data: your top-performing content uses outcome-first hooks. Reels are driving 82% of your link taps. Would you like me to break this down by platform?';
+    setTimeout(function(){t.innerHTML+='<div class="cmsg ai"><div class="cav">AI</div><div class="cbub">'+r+'</div></div>';t.scrollIntoView({behavior:'smooth',block:'end'});},700);
+  }
+  t.scrollIntoView({behavior:'smooth',block:'end'});
+}
+
+// DASHBOARD BUILDER
+var DB_FIELDS=[
+  {section:'Instagram',key:'ig_reach',label:'Reach',unit:'#',color:'#D4537E'},
+  {section:'Instagram',key:'ig_eng',label:'Engagement rate',unit:'%',color:'#ED93B1'},
+  {section:'Instagram',key:'ig_taps',label:'Link taps',unit:'#',color:'#993556'},
+  {section:'LinkedIn',key:'li_impr',label:'Impressions',unit:'#',color:'#3B82F6'},
+  {section:'LinkedIn',key:'li_eng',label:'Engagement rate',unit:'%',color:'#85B7EB'},
+  {section:'LinkedIn',key:'li_visits',label:'Profile visits',unit:'#',color:'#1D4ED8'},
+  {section:'Meta Ads',key:'revenue',label:'Revenue (GBP)',unit:'GBP',color:'#22C55E'},
+  {section:'Meta Ads',key:'adspend',label:'Ad spend (GBP)',unit:'GBP',color:'#6366F1'},
+  {section:'Meta Ads',key:'roas',label:'ROAS',unit:'x',color:'#15803D'},
+  {section:'TikTok',key:'tt_views',label:'Views',unit:'#',color:'#2B1517'},
+  {section:'TikTok',key:'tt_comp',label:'Completion rate',unit:'%',color:'#4F362F'},
+  {section:'HubSpot / GA4',key:'pipeline',label:'Pipeline value (GBP)',unit:'GBP',color:'#15803D'},
+  {section:'HubSpot / GA4',key:'leads',label:'Leads from social',unit:'#',color:'#22C55E'},
+  {section:'HubSpot / GA4',key:'sessions',label:'Web sessions',unit:'#',color:'#3B82F6'},
+  {section:'HubSpot / GA4',key:'demos',label:'Demo bookings',unit:'#',color:'#927071'}
+];
 var activeFields=[{key:'revenue',label:'Revenue (GBP)',unit:'GBP',color:'#22C55E',axis:'y1'},{key:'adspend',label:'Ad spend (GBP)',unit:'GBP',color:'#6366F1',axis:'y2'}];
-var dbType='line';
-function initFieldPalette(){var el=document.getElementById('field-palette');if(!el)return;var sec={};DB_FIELDS.forEach(function(f){if(!sec[f.section])sec[f.section]=[];sec[f.section].push(f);});var html='';Object.keys(sec).forEach(function(s){html+='<div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin:8px 0 5px;padding-top:6px;border-top:1px solid var(--border)">'+s+'</div>';sec[s].forEach(function(f){html+='<div class="db-field" onclick="addField(''+f.key+'')"><span style="width:6px;height:6px;border-radius:50%;background:'+f.color+';flex-shrink:0"></span><span style="flex:1">'+f.label+'</span><span style="font-size:9px;color:var(--mauve)">'+f.unit+'</span><span style="color:var(--soil);font-size:13px">+</span></div>';});});el.innerHTML=html;renderActiveFields();}
-function addField(key){if(activeFields.find(function(f){return f.key===key;}))return;var f=DB_FIELDS.find(function(f){return f.key===key;});if(!f)return;activeFields.push({key:f.key,label:f.label,unit:f.unit,color:f.color,axis:activeFields.length===0?'y1':'y2'});renderActiveFields();rebuildDB();}
+
+function initFieldPalette(){
+  var el=document.getElementById('field-palette');
+  if(!el) return;
+  var sec={};
+  DB_FIELDS.forEach(function(f){if(!sec[f.section])sec[f.section]=[];sec[f.section].push(f);});
+  var html='';
+  Object.keys(sec).forEach(function(s){
+    html+='<div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--mauve);margin:8px 0 5px;padding-top:6px;border-top:1px solid var(--border)">'+s+'</div>';
+    sec[s].forEach(function(f){html+='<div class="db-field" onclick="addField(\''+f.key+'\')"><span style="width:6px;height:6px;border-radius:50%;background:'+f.color+';flex-shrink:0"></span><span style="flex:1">'+f.label+'</span><span style="font-size:9px;color:var(--mauve)">'+f.unit+'</span><span style="color:var(--soil);font-size:13px">+</span></div>';});
+  });
+  el.innerHTML=html;
+  renderActiveFields();
+}
+function addField(key){
+  if(activeFields.find(function(f){return f.key===key;})) return;
+  var f=DB_FIELDS.find(function(f){return f.key===key;});
+  if(!f) return;
+  activeFields.push({key:f.key,label:f.label,unit:f.unit,color:f.color,axis:activeFields.length===0?'y1':'y2'});
+  renderActiveFields();rebuildDB();
+}
 function removeField(key){activeFields=activeFields.filter(function(f){return f.key!==key;});renderActiveFields();rebuildDB();}
 function toggleAxis(key){var f=activeFields.find(function(f){return f.key===key;});if(f){f.axis=f.axis==='y1'?'y2':'y1';renderActiveFields();rebuildDB();}}
-function renderActiveFields(){var el=document.getElementById('active-flds');if(!el)return;if(!activeFields.length){el.innerHTML='<div style="font-size:10px;color:var(--mauve);padding:8px;text-align:center;border:1px dashed var(--border2);letter-spacing:.5px">Click a field above to add it</div>';return;}el.innerHTML=activeFields.map(function(f){return'<div class="db-active"><span style="width:7px;height:7px;border-radius:50%;background:'+f.color+';flex-shrink:0"></span><span style="font-size:11px;flex:1;letter-spacing:.2px">'+f.label+'</span><button onclick="toggleAxis(''+f.key+'')" style="border:1px solid var(--border2);background:transparent;font-size:9px;padding:2px 7px;cursor:pointer;font-family:inherit;color:var(--text3);letter-spacing:.5px">'+(f.axis==='y1'?'Left':'Right')+'</button><button onclick="removeField(''+f.key+'')" style="border:none;background:transparent;color:var(--mauve);cursor:pointer;font-size:16px;padding:0 3px;line-height:1">&times;</button></div>';}).join('');}
+function renderActiveFields(){
+  var el=document.getElementById('active-flds');
+  if(!el) return;
+  if(!activeFields.length){el.innerHTML='<div style="font-size:10px;color:var(--mauve);padding:8px;text-align:center;border:1px dashed var(--border2)">Click a field above to add it</div>';return;}
+  el.innerHTML=activeFields.map(function(f){
+    return '<div class="db-active"><span style="width:7px;height:7px;border-radius:50%;background:'+f.color+';flex-shrink:0"></span><span style="font-size:11px;flex:1">'+f.label+'</span><button onclick="toggleAxis(\''+f.key+'\')" style="border:1px solid var(--border2);background:transparent;font-size:9px;padding:2px 7px;cursor:pointer;font-family:inherit;color:var(--mauve)">'+(f.axis==='y1'?'Left':'Right')+'</button><button onclick="removeField(\''+f.key+'\')" style="border:none;background:transparent;color:var(--mauve);cursor:pointer;font-size:16px;padding:0 3px;line-height:1">&#215;</button></div>';
+  }).join('');
+}
 function setType(btn,type){document.querySelectorAll('#ct-btns .btn').forEach(function(b){b.classList.remove('prim');});btn.classList.add('prim');dbType=type;rebuildDB();}
-function aiRec(){var r=['For Revenue vs Ad Spend: dual-axis line+bar -- revenue as line on left, ad spend as bars on right.','For engagement rate over time: area chart with fill.','For cross-channel reach: grouped bar chart.'];alert('AI recommendation:\n\n'+r[Math.floor(Math.random()*r.length)]);}
-var dummy={revenue:[2200,2400,2100,2800,3100,2900,3400,3600,3200,3800],adspend:[800,850,820,900,920,880,950,980,940,1010],ig_reach:[8200,9100,8700,10200,11400,10800,12100,13400,12900,14200],ig_eng:[4.1,4.3,4.0,4.5,4.7,4.4,4.8,5.1,4.9,5.2],ig_taps:[180,210,190,240,280,260,310,340,320,380],li_impr:[2100,2300,2200,2500,2700,2600,2900,3100,3000,3300],li_eng:[2.8,3.0,2.9,3.1,3.2,3.0,3.3,3.4,3.2,3.5],li_visits:[180,200,190,220,240,230,260,280,270,300],roas:[2.75,2.82,2.56,3.11,3.37,3.29,3.58,3.67,3.40,3.76],tt_views:[14200,18400,16800,22100,26400,24800,29100,33400,31200,36800],tt_comp:[48,52,50,56,58,54,62,65,60,68],pipeline:[4200,5100,4800,6200,7400,6900,8100,9200,8600,10400],leads:[12,15,11,18,22,20,24,28,26,31],sessions:[320,380,350,420,490,460,530,580,560,620],demos:[2,3,2,4,5,4,6,7,6,8],conv_rate:[2.1,2.3,2.0,2.5,2.8,2.6,2.9,3.1,3.0,3.2]};
+var dummy={revenue:[2200,2400,2100,2800,3100,2900,3400,3600],adspend:[800,850,820,900,920,880,950,980],ig_reach:[8200,9100,8700,10200,11400,10800,12100,13400],ig_eng:[4.1,4.3,4.0,4.5,4.7,4.4,4.8,5.1],ig_taps:[180,210,190,240,280,260,310,340],li_impr:[2100,2300,2200,2500,2700,2600,2900,3100],li_eng:[2.8,3.0,2.9,3.1,3.2,3.0,3.3,3.4],li_visits:[180,200,190,220,240,230,260,280],roas:[2.75,2.82,2.56,3.11,3.37,3.29,3.58,3.67],tt_views:[14200,18400,16800,22100,26400,24800,29100,33400],tt_comp:[48,52,50,56,58,54,62,65],pipeline:[4200,5100,4800,6200,7400,6900,8100,9200],leads:[12,15,11,18,22,20,24,28],sessions:[320,380,350,420,490,460,530,580],demos:[2,3,2,4,5,4,6,7]};
 function getDummy(key,n){var b=dummy[key]||dummy.revenue;return b.slice(0,n).map(function(v){return Math.round(v*(1+(Math.random()-.5)*.08));});}
-function fmtTick(f,v){if(!f)return v;if(f.unit==='x')return'x'+(v>=1000?(v/1000).toFixed(1)+'K':Math.round(v));if(f.unit==='%')return v.toFixed(1)+'%';if(f.unit==='x')return v.toFixed(2)+'x';return v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);}
-function rebuildDB(){if(charts['db-chart']){charts['db-chart'].destroy();delete charts['db-chart'];}var ctx=document.getElementById('db-chart');if(!ctx)return;var n=8;var labels=['Wk1','Wk2','Wk3','Wk4','Wk5','Wk6','Wk7','Wk8'].slice(0,n);var y1f=activeFields.filter(function(f){return f.axis==='y1';});var y2f=activeFields.filter(function(f){return f.axis==='y2';});var ds=[];y1f.forEach(function(f){ds.push({label:f.label,data:getDummy(f.key,n),borderColor:f.color,backgroundColor:dbType==='bar'?f.color+'bb':f.color+'18',borderWidth:2,fill:dbType==='area',tension:0.4,pointRadius:3,pointBackgroundColor:f.color,yAxisID:'y1',type:dbType==='bar'?'bar':dbType==='area'?'line':'line',borderRadius:dbType==='bar'?3:0,borderSkipped:false});});y2f.forEach(function(f){ds.push({label:f.label,data:getDummy(f.key,n),borderColor:f.color,backgroundColor:f.color+'88',borderWidth:2,fill:false,tension:0.4,pointRadius:3,pointBackgroundColor:f.color,yAxisID:'y2',type:'bar',borderRadius:3,borderSkipped:false});});var sc={x:{grid:{display:false},ticks:{font:{size:9,family:'Josefin Sans'},color:'#927071'}},y1:{position:'left',grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9,family:'Josefin Sans'},color:y1f[0]?y1f[0].color:'#927071',callback:function(v){return fmtTick(y1f[0],v);}}}};if(y2f.length)sc.y2={position:'right',grid:{display:false},ticks:{font:{size:9,family:'Josefin Sans'},color:y2f[0].color,callback:function(v){return fmtTick(y2f[0],v);}}};var te=document.getElementById('db-preview-t');if(te)te.textContent=activeFields.map(function(f){return f.label;}).join(' vs ')||'Chart preview';charts['db-chart']=new Chart(ctx,{type:dbType==='area'?'line':dbType==='doughnut'?'bar':dbType,data:{labels:labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:7,boxHeight:7,padding:8,font:{size:10,family:'Josefin Sans'},color:'#927071'}},tooltip:{mode:'index',intersect:false}},scales:sc,interaction:{intersect:false,mode:'index'}}});}
+function fmtTick(f,v){if(!f)return v;if(f.unit==='GBP')return 'GBP'+(v>=1000?(v/1000).toFixed(1)+'K':Math.round(v));if(f.unit==='%')return v.toFixed(1)+'%';if(f.unit==='x')return v.toFixed(2)+'x';return v>=1000?(v/1000).toFixed(1)+'K':Math.round(v);}
+function rebuildDB(){
+  if(C['db']){C['db'].destroy();delete C['db'];}
+  var ctx=document.getElementById('db-chart');
+  if(!ctx) return;
+  var n=8;
+  var labels=['Wk1','Wk2','Wk3','Wk4','Wk5','Wk6','Wk7','Wk8'];
+  var y1f=activeFields.filter(function(f){return f.axis==='y1';});
+  var y2f=activeFields.filter(function(f){return f.axis==='y2';});
+  var ds=[];
+  y1f.forEach(function(f){ds.push({label:f.label,data:getDummy(f.key,n),borderColor:f.color,backgroundColor:dbType==='bar'?f.color+'bb':f.color+'18',borderWidth:2,fill:dbType==='area',tension:0.4,pointRadius:3,pointBackgroundColor:f.color,yAxisID:'y1',type:dbType==='bar'?'bar':dbType==='area'?'line':'line',borderRadius:dbType==='bar'?3:0,borderSkipped:false});});
+  y2f.forEach(function(f){ds.push({label:f.label,data:getDummy(f.key,n),borderColor:f.color,backgroundColor:f.color+'88',borderWidth:2,fill:false,tension:0.4,pointRadius:3,pointBackgroundColor:f.color,yAxisID:'y2',type:'bar',borderRadius:3,borderSkipped:false});});
+  var sc={x:{grid:{display:false},ticks:{font:{size:9},color:'#927071'}},y1:{position:'left',grid:{color:'rgba(43,21,23,.04)'},ticks:{font:{size:9},color:y1f[0]?y1f[0].color:'#927071',callback:function(v){return fmtTick(y1f[0],v);}}}};
+  if(y2f.length) sc.y2={position:'right',grid:{display:false},ticks:{font:{size:9},color:y2f[0].color,callback:function(v){return fmtTick(y2f[0],v);}}};
+  var te=document.getElementById('db-preview-t');
+  if(te) te.textContent=activeFields.map(function(f){return f.label;}).join(' vs ')||'Chart preview';
+  C['db']=new Chart(ctx,{type:dbType==='area'?'line':dbType==='doughnut'?'bar':dbType,data:{labels:labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:7,boxHeight:7,padding:8,font:{size:10},color:'#927071'}},tooltip:{mode:'index',intersect:false}},scales:sc,interaction:{intersect:false,mode:'index'}}});
+}
 
 showScreen('overview');
-
 </script>
 </body>
 </html>
