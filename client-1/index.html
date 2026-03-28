@@ -273,7 +273,7 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
       <div class="mc"><div class="mc-l">Blended ROAS</div><div class="mc-v">2.8x</div><div class="mc-d up">Up 0.3x vs last month</div></div>
     </div>
     <div class="card">
-      <div class="card-h"><div><div class="card-t">Pipeline attribution — social to revenue</div><div class="card-s">UTM to GA4 to CRM — auto-tracked</div></div><span class="pill pg">HubSpot connected</span></div>
+      <div class="card-h"><div><div class="card-t">Social click funnel — same session</div><div class="card-s">Direct click-to-conversion tracking only</div></div><span class="pill pg">HubSpot connected</span></div>
       <div style="display:grid;grid-template-columns:repeat(9,minmax(0,1fr));align-items:center;gap:0">
         <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:17px;font-weight:300;color:var(--soil);letter-spacing:-1px">3,840</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Link taps</div></div>
         <div style="text-align:center;color:var(--blush);font-size:13px">&#8594;</div>
@@ -283,13 +283,14 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
         <div style="text-align:center;color:var(--blush);font-size:13px">&#8594;</div>
         <div style="text-align:center;padding:10px 4px;border-right:1px solid var(--border)"><div style="font-size:17px;font-weight:300;color:var(--soil);letter-spacing:-1px">11</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Demos</div></div>
         <div style="text-align:center;color:var(--blush);font-size:13px">&#8594;</div>
-        <div style="text-align:center;padding:10px 4px"><div style="font-size:17px;font-weight:300;color:#15803D;letter-spacing:-1px">&#163;38.4K</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Pipeline</div></div>
+        <div style="text-align:center;padding:10px 4px"><div style="font-size:17px;font-weight:300;color:var(--soil);letter-spacing:-1px">11</div><div style="font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-top:3px">Demos booked</div></div>
       </div>
       <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:14px;flex-wrap:wrap">
-        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#D4537E"></span>Instagram — 58% of leads · &#163;22K</span>
-        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#3B82F6"></span>LinkedIn — 32% · &#163;12.3K</span>
-        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#2B1517"></span>TikTok — 10% · &#163;4.1K</span>
+        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#D4537E"></span>Instagram — 58% of same-session leads</span>
+        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#3B82F6"></span>LinkedIn — 32% of same-session leads</span>
+        <span style="font-size:10px;color:var(--earth);display:flex;align-items:center;gap:5px"><span class="dot" style="background:#2B1517"></span>TikTok — 10% of same-session leads</span>
       </div>
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:10px;color:var(--mauve);letter-spacing:.2px;font-style:italic">Shows same-session conversions from tracked social clicks. Does not capture people who discovered you through social and converted later.</div>
     </div>
     <div class="g2">
       <div class="card" style="margin-bottom:0"><div class="card-h"><div><div class="card-t">Cross-channel reach (last 30 days)</div><div class="card-s">Weekly by platform</div></div><span class="pill pe">trending up</span></div><div class="cw" style="height:165px"><canvas id="ch-overview"></canvas></div></div>
@@ -388,7 +389,7 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
         <div class="proj-cell"><div class="proj-v" id="proj-reach">-</div><div class="proj-l">Est. reach</div></div>
         <div class="proj-cell"><div class="proj-v" id="proj-eng">-</div><div class="proj-l">Avg eng.</div></div>
         <div class="proj-cell"><div class="proj-v" id="proj-taps">-</div><div class="proj-l">Est. taps</div></div>
-        <div class="proj-cell"><div class="proj-v" id="proj-pipe" style="color:#4ADE80">-</div><div class="proj-l">Est. pipeline</div></div>
+        <div class="proj-cell"><div class="proj-v" id="proj-pipe">-</div><div class="proj-l">Est. form fills</div></div>
         <div class="proj-cell"><div class="proj-v" id="proj-posts">-</div><div class="proj-l">Posts planned</div></div>
       </div>
       <div id="proj-flags" style="margin-top:10px;display:flex;flex-direction:column;gap:5px"></div>
@@ -450,8 +451,8 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
       <div class="mc"><div class="mc-l">Paid ROAS</div><div class="mc-v">3.2x</div><div class="mc-d dn">Down 0.4x vs last month</div></div>
     </div>
     <div class="pipe-row green">
-      <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:#15803D">Instagram pipeline this month</div>
-      <div style="font-size:11px;color:#166534;flex:1">1,840 link taps &#8594; 620 sessions &#8594; 49 leads &#8594; 6 demos &#8594; <strong>&#163;22K pipeline</strong></div>
+      <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:#15803D">Instagram click funnel — same session</div>
+      <div style="font-size:11px;color:#166534;flex:1">1,840 link taps &#8594; 620 sessions &#8594; 49 leads &#8594; <strong>6 demos booked</strong></div>
       <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM &#8594; GA4 &#8594; HubSpot</span>
     </div>
     <div class="ch-tabs"><button class="ch-tab active" onclick="chtab(this)">Organic</button><button class="ch-tab" onclick="chtab(this)">Paid (Meta Ads)</button><button class="ch-tab" onclick="chtab(this)">Stories</button><button class="ch-tab" onclick="chtab(this)">Reels</button></div>
@@ -488,8 +489,8 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
       <div class="mc"><div class="mc-l">Follower growth</div><div class="mc-v">+420</div><div class="mc-d up">Above benchmark</div></div>
     </div>
     <div class="pipe-row blue">
-      <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:#2563EB">LinkedIn pipeline this month</div>
-      <div style="font-size:11px;color:#1D4ED8;flex:1">2,840 profile visits &#8594; 480 sessions &#8594; 27 leads &#8594; 4 demos &#8594; <strong>&#163;12.3K pipeline</strong></div>
+      <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:#2563EB">LinkedIn click funnel — same session</div>
+      <div style="font-size:11px;color:#1D4ED8;flex:1">2,840 profile visits &#8594; 480 sessions &#8594; 27 leads &#8594; <strong>4 demos booked</strong></div>
       <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM &#8594; GA4 &#8594; HubSpot</span>
     </div>
     <div class="g2e">
@@ -515,8 +516,8 @@ body{font-family:'Josefin Sans',sans-serif;font-weight:300;background:var(--off)
       <div class="mc"><div class="mc-l">Profile clicks</div><div class="mc-v">3,420</div><div class="mc-d up">Up 44% this month</div></div>
     </div>
     <div class="pipe-row neutral">
-      <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--soil)">TikTok pipeline this month</div>
-      <div style="font-size:11px;color:var(--earth);flex:1">3,420 profile clicks &#8594; 140 sessions &#8594; 8 leads &#8594; 1 demo &#8594; <strong>&#163;4.1K pipeline</strong></div>
+      <div style="font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--soil)">TikTok click funnel — same session</div>
+      <div style="font-size:11px;color:var(--earth);flex:1">3,420 profile clicks &#8594; 140 sessions &#8594; 8 leads &#8594; <strong>1 demo booked</strong></div>
       <span style="font-size:9px;letter-spacing:1px;color:var(--mauve)">UTM &#8594; GA4 &#8594; HubSpot</span>
     </div>
     <div class="g3">
@@ -830,7 +831,7 @@ function projectMonth(){
   document.getElementById('proj-reach').textContent = fmtK(tR);
   document.getElementById('proj-eng').textContent = (tE/mp.length).toFixed(1)+'%';
   document.getElementById('proj-taps').textContent = fmtK(tT);
-  document.getElementById('proj-pipe').textContent = 'GBP'+fmtK(tP);
+  document.getElementById('proj-pipe').textContent = Math.round(tT*0.045)+' fills';
   document.getElementById('proj-posts').textContent = mp.length+' posts';
   var fl = '';
   if(strong.length) fl += '<div style="font-size:11px;color:#4ADE80;padding:6px 10px;background:rgba(74,222,128,.08);border-left:2px solid #4ADE80">Strong: '+strong.slice(0,2).join(' and ')+'</div>';
@@ -1060,7 +1061,7 @@ var DB_FIELDS=[
   {section:'Meta Ads',key:'roas',label:'ROAS',unit:'x',color:'#15803D'},
   {section:'TikTok',key:'tt_views',label:'Views',unit:'#',color:'#2B1517'},
   {section:'TikTok',key:'tt_comp',label:'Completion rate',unit:'%',color:'#4F362F'},
-  {section:'HubSpot / GA4',key:'pipeline',label:'Pipeline value (GBP)',unit:'GBP',color:'#15803D'},
+  {section:'HubSpot / GA4',key:'pipeline',label:'Same-session pipeline (GBP)',unit:'GBP',color:'#15803D'},
   {section:'HubSpot / GA4',key:'leads',label:'Leads from social',unit:'#',color:'#22C55E'},
   {section:'HubSpot / GA4',key:'sessions',label:'Web sessions',unit:'#',color:'#3B82F6'},
   {section:'HubSpot / GA4',key:'demos',label:'Demo bookings',unit:'#',color:'#927071'}
